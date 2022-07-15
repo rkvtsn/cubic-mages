@@ -1,17 +1,34 @@
+import { useState, useCallback } from "react";
 import WorldMap from "components/WorldMap";
 import generateMap from "components/WorldMap/generateMap";
-import { useState } from "react";
-import { useCallback } from "react";
 import { TileModel } from "types/TileModel";
+import EditorPanel from "./EditorPanel";
+import { EditorWrapperStyled } from "./styles";
+import { CellBaseModel } from "types/CellModel";
 
 const Editor = () => {
-  const handleCellClick = useCallback((cellId: number) => {
-    console.log(cellId);
-  }, []);
-
   const [worldMap, setWorldMap] = useState<TileModel[][]>(generateMap(4, 6));
 
-  return <WorldMap worldMap={worldMap} onClick={handleCellClick} />;
+  const [currentCellId, setCurrentCellId] = useState<number | null>(null);
+
+  const handleCellClick = useCallback(
+    (tileId: number, cellId: number) => {
+      setCurrentCellId(cellId);
+    },
+    [setCurrentCellId]
+  );
+  const handleOnClickPanel = useCallback((cell: CellBaseModel) => {}, []);
+
+  return (
+    <EditorWrapperStyled>
+      <EditorPanel onClick={handleOnClickPanel} currentCellId={currentCellId} />
+      <WorldMap
+        worldMap={worldMap}
+        currentCellId={currentCellId}
+        onClick={handleCellClick}
+      />
+    </EditorWrapperStyled>
+  );
 };
 
 export default Editor;

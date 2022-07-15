@@ -2,28 +2,30 @@ import MapTile from "components/MapTile";
 import { useCallback } from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import CellModel, { CellBaseModel } from "types/CellModel";
 import { TileModel } from "types/TileModel";
 import { WorldMapRowStyled, WorldMapStyled, WorldMapWrapper } from "./styles";
 
 interface WorldMapProps {
-  onClick?: (cellId: number) => void;
+  onClick?: (tileId: number, cellId: number) => void;
   worldMap: TileModel[][];
+  currentCellId: number | null;
 }
 
-const WorldMap = ({ onClick, worldMap }: WorldMapProps) => {
+const WorldMap = ({ onClick, worldMap, currentCellId }: WorldMapProps) => {
   const [tiles, setTiles] = useState<TileModel[][]>([]);
-  const [currentCellId, setCurrentCellId] = useState<number | null>(null);
 
   useEffect(() => {
     setTiles(worldMap);
   }, [setTiles, worldMap]);
 
   const handleClickOnCell = useCallback(
-    (tileId: number, cellId: number) => {
-      setCurrentCellId(cellId);
-      onClick && onClick(cellId);
+    (tileId: number, cell: CellBaseModel) => {
+      if (onClick) {
+        onClick(tileId, (cell as CellModel)?.id);
+      }
     },
-    [setCurrentCellId, onClick]
+    [onClick]
   );
 
   return (
