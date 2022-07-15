@@ -1,4 +1,4 @@
-import CELLS_LIBRARY_BASE_ALL, { DEFAULT_CELL_KEY } from "constants/cells";
+import { CELLS_MAP, DEFAULT_CELL_KEY } from "constants/cells";
 import CellModel from "types/CellModel";
 import generateId from "./generateId";
 
@@ -15,13 +15,11 @@ export const createCell = ({
   tileId,
   name = DEFAULT_CELL_KEY,
 }: CreateCellProps): CellModel => {
-  const type = CELLS_LIBRARY_BASE_ALL.find((cell) => name === cell.name)?.type;
   return {
     id: generateId(),
     row,
     col,
-    name,
     tileId,
-    type: type ? type : "Common",
+    ...CELLS_MAP[name],
   };
 };

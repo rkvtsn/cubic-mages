@@ -1,6 +1,7 @@
 import MapTile from "components/MapTile";
 import { useCallback } from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 import { useMemo } from "react";
 import { TileModel } from "types/TileModel";
 import generateMap from "./generateMap";
@@ -17,11 +18,12 @@ const WorldMap = ({
   rows = 4,
   cols = 6,
 }: WorldMapProps) => {
-  const tiles: TileModel[][] = useMemo(() => {
-    return generateMap(rows, cols);
-  }, [rows, cols]);
-
+  const [tiles, setTiles] = useState<TileModel[][]>([]);
   const [currentCellId, setCurrentCellId] = useState<number | null>(null);
+
+  useEffect(() => {
+    setTiles(generateMap(rows, cols));
+  }, [cols, rows]);
 
   const handleClickOnCell = useCallback(
     (tileId: number, cellId: number) => {
