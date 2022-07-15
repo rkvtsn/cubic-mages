@@ -1,5 +1,5 @@
-export const generateId = () => {
-  return new Date().getTime();
+export const generateId = (): number => {
+  return Math.random() + new Date().getTime();
 };
 
 export default generateId;

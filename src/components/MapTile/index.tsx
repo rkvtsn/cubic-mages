@@ -19,8 +19,8 @@ const MapTile = ({ tile, onClick, currentCellId }: MapTileProps) => {
 
   return (
     <MapTileWrapperStyled>
-      {tile.cells.map((cellRow) => (
-        <MapTileRowStyled>
+      {tile.cells.map((cellRow, i) => (
+        <MapTileRowStyled key={i}>
           {cellRow.map((cell) => (
             <TileCell
               isSelected={currentCellId === cell.id}
