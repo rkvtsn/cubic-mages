@@ -1,13 +1,15 @@
 import { useState, useCallback } from "react";
 import WorldMap from "components/WorldMap";
-import generateMap from "components/WorldMap/generateMap";
-import { TileModel } from "types/TileModel";
 import EditorPanel from "./EditorPanel";
 import { EditorWrapperStyled } from "./styles";
-import { CellBaseModel } from "types/CellModel";
+import CellModel, { CellBaseModel } from "types/CellModel";
+import { COLS, ROWS } from "constants/cells";
+import generateWorld from "utils/generateWorld";
+
+const realWorld = generateWorld({ rows: ROWS, cols: COLS });
 
 const Editor = () => {
-  const [worldMap, setWorldMap] = useState<TileModel[][]>(generateMap(4, 6));
+  const [worldMap, setWorldMap] = useState<CellModel[]>(realWorld);
 
   const [currentCellId, setCurrentCellId] = useState<number | null>(null);
 

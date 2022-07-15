@@ -172,3 +172,9 @@ export const CELLS_MAP: Record<string, CellBaseModel> = CELLS.reduce(
 );
 export const DEFAULT_CELL_KEY = "road";
 export default CELLS;
+
+export const ROWS = 4;
+export const COLS = 6;
+
+export const TILE_ROWS = 3;
+export const TILE_COLS = 3;

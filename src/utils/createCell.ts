@@ -2,23 +2,20 @@ import { CELLS_MAP, DEFAULT_CELL_KEY } from "constants/cells";
 import CellModel from "types/CellModel";
 import generateId from "./generateId";
 
-interface CreateCellProps {
-  row: number;
-  col: number;
-  tileId: number;
-  name?: string;
-}
-
-export const createCell = ({
-  row,
-  col,
-  tileId,
-  name = DEFAULT_CELL_KEY,
-}: CreateCellProps): CellModel => {
+export const createCell = (
+  row: number,
+  col: number,
+  tileRow: number,
+  tileCol: number,
+  tileId: number,
+  name: string = DEFAULT_CELL_KEY
+): CellModel => {
   return {
     id: generateId(),
     row,
     col,
+    tileRow,
+    tileCol,
     tileId,
     ...CELLS_MAP[name],
   };

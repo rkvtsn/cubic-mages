@@ -10,9 +10,11 @@ export interface CellBaseModel {
 
 export interface CellModel extends CellBaseModel {
   id: number;
-  tileId: number;
   row: number;
   col: number;
+  tileId: number;
+  tileRow: number;
+  tileCol: number;
 }
 
 export default CellModel;
