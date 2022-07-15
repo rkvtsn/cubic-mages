@@ -1,5 +1,7 @@
+import WorldMap from "components/WorldMap";
+
 const Editor = () => {
-  return <div>Editor</div>;
+  return <WorldMap editorMode />;
 };
 
 export default Editor;

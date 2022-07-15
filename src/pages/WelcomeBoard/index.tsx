@@ -5,7 +5,7 @@ import { RouterKeys } from "RouterView/routeKeys";
 const WelcomeBoard = () => {
   const navigate = useNavigate();
   const handleOnStartClick = useCallback(() => {
-    navigate(RouterKeys.WorldMap);
+    navigate(RouterKeys.Editor);
   }, [navigate]);
   return (
     <div>

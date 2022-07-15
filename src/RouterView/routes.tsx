@@ -1,6 +1,6 @@
 import WelcomeBoard from "pages/WelcomeBoard";
-import WorldMap from "pages/WorldMap";
 import { RouterKeys } from "./routeKeys";
+import Editor from "pages/Editor";
 
 interface RouterViewItem {
   path: RouterKeys;
@@ -13,8 +13,8 @@ export const ROUTES: RouterViewItem[] = [
     element: <WelcomeBoard />,
   },
   {
-    path: RouterKeys.WorldMap,
-    element: <WorldMap />,
+    path: RouterKeys.Editor,
+    element: <Editor />,
   },
 ];
 
