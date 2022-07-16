@@ -66,6 +66,18 @@ const Editor = () => {
             return cell;
           });
         });
+      } else if (
+        editorPanelState.mode === EditorModeEnum.Tile &&
+        editorPanelState.cell
+      ) {
+        setWorldMap((oldWorld) => {
+          return oldWorld.map((cell) => {
+            if (tileId === cell.tileId) {
+              return { ...cell, ...editorPanelState.cell };
+            }
+            return cell;
+          });
+        });
       }
     },
     [setSelectedCells, editorPanelState]

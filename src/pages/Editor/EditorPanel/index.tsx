@@ -22,9 +22,9 @@ const EditorPanel = ({
   isPaintMode,
 }: EditorPanelProps) => {
   const handleOnChange = useCallback(
-    (buttonName: EditorModeEnum) => {
+    (mode: EditorModeEnum) => {
       onClearSelect();
-      onChange({ mode: buttonName });
+      onChange({ mode, cell: null });
     },
     [onChange, onClearSelect]
   );

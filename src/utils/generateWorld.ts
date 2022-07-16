@@ -17,16 +17,10 @@ const genTileCell = (
   tileCol: number
 ): CellModel[] => {
   const cells: CellModel[] = [];
-
+  const tileId = generateId();
   for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
     for (let colIndex = 0; colIndex < cols; colIndex++) {
-      const cell = createCell(
-        rowIndex,
-        colIndex,
-        tileRow,
-        tileCol,
-        generateId()
-      );
+      const cell = createCell(rowIndex, colIndex, tileRow, tileCol, tileId);
       cells.push(cell);
     }
   }
