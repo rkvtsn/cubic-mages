@@ -5,11 +5,18 @@ import useCellStyle from "./useCellStyle";
 
 interface TileCellProps {
   onClick: (cell: CellBaseModel, e: React.MouseEvent<HTMLElement>) => void;
-  isSelected?: boolean;
   cell: CellBaseModel;
+  isSelected?: boolean;
+  // will it change color or took only first
+  isStatic?: boolean;
 }
 
-const TileCell = ({ onClick, cell, isSelected = false }: TileCellProps) => {
+const TileCell = ({
+  onClick,
+  cell,
+  isSelected = false,
+  isStatic = false,
+}: TileCellProps) => {
   const handleOnClick = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
       onClick(cell, e);
@@ -17,7 +24,7 @@ const TileCell = ({ onClick, cell, isSelected = false }: TileCellProps) => {
     [cell, onClick]
   );
 
-  const styles = useCellStyle(cell, isSelected);
+  const styles = useCellStyle(cell, isSelected, isStatic);
 
   return (
     <TileCellStyled {...styles} onClick={handleOnClick}>

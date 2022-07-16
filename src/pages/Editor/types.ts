@@ -1,6 +1,12 @@
 import { CellBaseModel } from "types/CellModel";
 
 export interface EditorPanelState {
-  isBrush: boolean;
+  mode: EditorModeEnum;
   cell: CellBaseModel | null;
+}
+
+export enum EditorModeEnum {
+  Brush = "brush",
+  Tile = "tile",
+  Select = "select",
 }

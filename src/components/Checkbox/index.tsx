@@ -1,14 +1,14 @@
 import React, { useCallback } from "react";
 import { useRef } from "react";
 
-interface CheckboxProps<T> {
+interface CheckboxProps {
   value: boolean;
-  onChange: (value: Partial<T> | any) => void;
+  onChange: (value: any) => void;
   name?: string;
   label?: string;
 }
 
-function Checkbox<T>({ value, onChange, label, name }: CheckboxProps<T>) {
+const Checkbox = ({ value, onChange, label, name }: CheckboxProps) => {
   const handleOnChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = name
@@ -33,6 +33,6 @@ function Checkbox<T>({ value, onChange, label, name }: CheckboxProps<T>) {
       />
     </div>
   );
-}
+};
 
 export default Checkbox;

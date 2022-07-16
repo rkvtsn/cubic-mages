@@ -6,6 +6,7 @@ export interface CellBaseModel {
   name: string;
   type: CellType;
   background: string | string[];
+  count?: number;
 }
 
 export interface CellModel extends CellBaseModel {

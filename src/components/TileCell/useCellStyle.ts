@@ -12,11 +12,13 @@ const getRandomFromArray = <T>(array: T[]): T => {
 
 export const useCellStyle = (
   { name, type }: CellBaseModel,
-  isSelected: boolean
+  isSelected: boolean,
+  isStatic: boolean
 ): UseCellStyle => {
-  const background = Array.isArray(CELLS_MAP[name]?.background)
-    ? getRandomFromArray<string>(CELLS_MAP[name]?.background as [])
-    : (CELLS_MAP[name]?.background as string);
+  const background = !Array.isArray(CELLS_MAP[name]?.background)
+    ? (CELLS_MAP[name]?.background as string)
+    : (isStatic && CELLS_MAP[name]?.background[0]) ||
+      getRandomFromArray<string>(CELLS_MAP[name]?.background as []);
   const style = {
     background,
     selected: isSelected,

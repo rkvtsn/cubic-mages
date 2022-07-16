@@ -6,16 +6,22 @@ import { EditorCellStyled } from "./styles";
 interface EditorCellProps {
   cell: CellBaseModel;
   onClick: (cell: CellBaseModel) => void;
+  isSelected: boolean;
 }
 
-const EditorCell = ({ cell, onClick }: EditorCellProps) => {
+const EditorCell = ({ cell, onClick, isSelected }: EditorCellProps) => {
   const handleOnClick = useCallback(() => {
     onClick(cell);
   }, [cell, onClick]);
 
   return (
     <EditorCellStyled>
-      <TileCell onClick={handleOnClick} cell={cell} />
+      <TileCell
+        cell={cell}
+        onClick={handleOnClick}
+        isSelected={isSelected}
+        isStatic
+      />
       <div>{cell.name}</div>
     </EditorCellStyled>
   );

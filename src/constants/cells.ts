@@ -115,68 +115,81 @@ const CELLS: CellBaseModel[] = [
     name: "Jail",
     type: "StartLocation",
     background: COLOR_PALETTE.BlackCetacean,
+    count: 1,
   },
   {
     name: "Chirch",
     type: "StartLocation",
     background: COLOR_PALETTE.BlackBlue,
+    count: 1,
   },
   {
     name: "Stronghold",
     type: "StartLocation",
     background: COLOR_PALETTE.BlackChinese,
+    count: 1,
   },
   // "Garnot", "Roderik", "Tildior", "Porlien", "Karoth", "Peltn"
   {
     name: "Garnot",
     type: "City",
     background: COLOR_PALETTE.BrownAuborn,
+    count: 1,
   },
   {
     name: "Roderik",
     type: "City",
     background: COLOR_PALETTE.BrownBean,
+    count: 1,
   },
   {
     name: "Tildior",
     type: "City",
     background: COLOR_PALETTE.BrownChocolate,
+    count: 1,
   },
   {
     name: "Porlien",
     type: "City",
     background: COLOR_PALETTE.BrownCoffee,
+    count: 1,
   },
   {
     name: "Karoth",
     type: "City",
     background: COLOR_PALETTE.BrownRusset,
+    count: 1,
   },
   {
     name: "Peltn",
     type: "City",
     background: COLOR_PALETTE.BrownSpicy,
+    count: 1,
   },
   // "fire", "camp", "cave", "temple"
   {
     name: "fire",
     type: "Ruin",
     background: COLOR_PALETTE.PinkLittle,
+    count: 1,
   },
   {
     name: "camp",
     type: "Ruin",
     background: COLOR_PALETTE.PinkMulbery,
+    count: 1,
   },
   {
     name: "cave",
     type: "Ruin",
     background: COLOR_PALETTE.PinkRasberry,
+    count: 1,
   },
   {
     name: "temple",
     type: "Ruin",
     background: COLOR_PALETTE.WhitePlatinum,
+    count: 1,
   },
 ];
 

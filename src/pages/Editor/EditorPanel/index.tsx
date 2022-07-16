@@ -1,18 +1,13 @@
-import React from "react";
-import { CELLS_BY_GROUPS } from "constants/cells";
+import { useCallback } from "react";
 import { CellBaseModel } from "types/CellModel";
-import EditorCell from "./EditorCell";
-import {
-  CellEditOptionsRowStyled,
-  CellEditOptionsStyled,
-  EditorPanelWrapperStyled,
-  PStyled,
-} from "./styled";
-import { EditorPanelState } from "../types";
-import Checkbox from "components/Checkbox";
+import ControlPanel from "components/ControlPanel";
+import { EditorModeEnum, EditorPanelState } from "../types";
+import { CONTROL_BUTTONS } from "../constants";
+import PaintPanel from "./PaintPanel";
+import { EditorPanelWrapperStyled, PStyled } from "./styled";
 
 interface EditorPanelProps {
-  selectedCells: number[];
+  isPaintMode: boolean;
   onClick: (cell: CellBaseModel) => void;
   onClearSelect: () => void;
   editorPanelState: EditorPanelState;
@@ -20,42 +15,52 @@ interface EditorPanelProps {
 }
 
 const EditorPanel = ({
-  selectedCells,
   onClearSelect,
   onClick,
   editorPanelState,
   onChange,
+  isPaintMode,
 }: EditorPanelProps) => {
-  const isPaintMode = selectedCells?.length || editorPanelState.isBrush;
+  const handleOnChange = useCallback(
+    (buttonName: EditorModeEnum) => {
+      onClearSelect();
+      onChange({ mode: buttonName });
+    },
+    [onChange, onClearSelect]
+  );
+
+  const handleClick = useCallback(
+    (cell: CellBaseModel) => {
+      onClick(cell);
+      if (editorPanelState.mode !== EditorModeEnum.Select) {
+        onChange({ cell });
+      }
+    },
+    [onClick, onChange, editorPanelState?.mode]
+  );
 
   return (
     <EditorPanelWrapperStyled>
       <h3>Editor Panel</h3>
-      {isPaintMode ? (
-        <>
-          <CellEditOptionsStyled>
-            {Object.keys(CELLS_BY_GROUPS).map((cellKey) => (
-              <React.Fragment key={cellKey}>
-                <PStyled>{cellKey}</PStyled>
-                <CellEditOptionsRowStyled>
-                  {CELLS_BY_GROUPS[cellKey].map((cell) => (
-                    <EditorCell key={cell.name} onClick={onClick} cell={cell} />
-                  ))}
-                </CellEditOptionsRowStyled>
-              </React.Fragment>
-            ))}
-          </CellEditOptionsStyled>
-          <button onClick={onClearSelect}>Clear selection</button>
-        </>
-      ) : (
+      <div>
+        <ControlPanel
+          buttons={CONTROL_BUTTONS}
+          onChange={handleOnChange}
+          selected={editorPanelState.mode}
+        />
         <div>
-          <PStyled>Click on map's cell to edit</PStyled>
-          <Checkbox<EditorPanelState>
-            value={editorPanelState.isBrush}
-            name="isBrush"
-            onChange={onChange}
-          />
+          {editorPanelState.mode === EditorModeEnum.Select && (
+            <button onClick={onClearSelect}>Clear selection</button>
+          )}
         </div>
+      </div>
+      {isPaintMode ? (
+        <PaintPanel
+          onSelect={handleClick}
+          selected={editorPanelState?.cell?.name}
+        />
+      ) : (
+        <PStyled>Click on map's cell to edit</PStyled>
       )}
     </EditorPanelWrapperStyled>
   );

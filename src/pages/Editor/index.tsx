@@ -1,19 +1,15 @@
 import { useState, useCallback } from "react";
 import WorldMap from "components/WorldMap";
-import EditorPanel from "./EditorPanel";
-import { EditorWrapperStyled } from "./styles";
 import CellModel, { CellBaseModel } from "types/CellModel";
 import { COLS, ROWS } from "constants/cells";
 import generateWorld from "utils/generateWorld";
-import { EditorPanelState } from "./types";
+import { EditorModeEnum, EditorPanelState } from "./types";
+import { DEFAULT_EDITOR_PANEL_STATE } from "./constants";
+import { EditorWrapperStyled } from "./styles";
 import useStateUpdate from "./useUpdateState";
+import EditorPanel from "./EditorPanel";
 
 const realWorld = generateWorld({ rows: ROWS, cols: COLS });
-
-const DEFAULT_EDITOR_PANEL_STATE: EditorPanelState = {
-  isBrush: false,
-  cell: null,
-};
 
 const Editor = () => {
   const [worldMap, setWorldMap] = useState<CellModel[]>(realWorld);
@@ -78,7 +74,12 @@ const Editor = () => {
         onChange={updateEditorPanelState}
         onClearSelect={handleOnClearSelect}
         onClick={handleOnClickPanel}
-        selectedCells={selectedCells}
+        isPaintMode={
+          !!(
+            selectedCells?.length ||
+            editorPanelState.mode !== EditorModeEnum.Select
+          )
+        }
       />
     </EditorWrapperStyled>
   );
