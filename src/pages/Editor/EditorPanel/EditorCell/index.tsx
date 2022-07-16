@@ -1,7 +1,7 @@
 import TileCell from "components/TileCell";
 import { memo, useCallback } from "react";
 import { CellBaseModel } from "types/CellModel";
-import { EditorCellStyled } from "./styles";
+import { EditorCellStyled, TileCellStyled } from "./styles";
 
 interface EditorCellProps {
   cell: CellBaseModel;
@@ -16,7 +16,7 @@ const EditorCell = ({ cell, onClick, isSelected }: EditorCellProps) => {
 
   return (
     <EditorCellStyled>
-      <TileCell
+      <TileCellStyled
         cell={cell}
         onClick={handleOnClick}
         isSelected={isSelected}
