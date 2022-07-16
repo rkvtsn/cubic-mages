@@ -21,6 +21,10 @@ const Editor = () => {
     [setSelectedCells]
   );
 
+  const handleOnClearSelect = useCallback(() => {
+    setSelectedCells([]);
+  }, [setSelectedCells]);
+
   const handleOnClickPanel = useCallback(
     (cell: CellBaseModel) => {
       setWorldMap((oldWorld) =>
@@ -31,22 +35,23 @@ const Editor = () => {
           return oldCell;
         })
       );
+      handleOnClearSelect();
     },
-    [setWorldMap, selectedCells]
+    [setWorldMap, selectedCells, handleOnClearSelect]
   );
 
-  const handleOnClickOuter = useCallback(() => {
-    setSelectedCells([]);
-  }, [setSelectedCells]);
-
   return (
-    <EditorWrapperStyled onClick={handleOnClickOuter}>
+    <EditorWrapperStyled>
       <WorldMap
         worldMap={worldMap}
         selectedCells={selectedCells}
         onClick={handleCellClick}
       />
-      <EditorPanel onClick={handleOnClickPanel} selectedCells={selectedCells} />
+      <EditorPanel
+        onClearSelect={handleOnClearSelect}
+        onClick={handleOnClickPanel}
+        selectedCells={selectedCells}
+      />
     </EditorWrapperStyled>
   );
 };

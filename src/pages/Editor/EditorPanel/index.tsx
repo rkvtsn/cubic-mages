@@ -12,25 +12,33 @@ import {
 interface EditorPanelProps {
   selectedCells: number[];
   onClick: (cell: CellBaseModel) => void;
+  onClearSelect: () => void;
 }
 
-const EditorPanel = ({ selectedCells, onClick }: EditorPanelProps) => {
+const EditorPanel = ({
+  selectedCells,
+  onClearSelect,
+  onClick,
+}: EditorPanelProps) => {
   return (
     <EditorPanelWrapperStyled>
       <h3>Editor Panel</h3>
       {selectedCells?.length ? (
-        <CellEditOptionsStyled>
-          {Object.keys(CELLS_BY_GROUPS).map((cellKey) => (
-            <React.Fragment key={cellKey}>
-              <PStyled>{cellKey}</PStyled>
-              <CellEditOptionsRowStyled>
-                {CELLS_BY_GROUPS[cellKey].map((cell) => (
-                  <EditorCell key={cell.name} onClick={onClick} cell={cell} />
-                ))}
-              </CellEditOptionsRowStyled>
-            </React.Fragment>
-          ))}
-        </CellEditOptionsStyled>
+        <>
+          <CellEditOptionsStyled>
+            {Object.keys(CELLS_BY_GROUPS).map((cellKey) => (
+              <React.Fragment key={cellKey}>
+                <PStyled>{cellKey}</PStyled>
+                <CellEditOptionsRowStyled>
+                  {CELLS_BY_GROUPS[cellKey].map((cell) => (
+                    <EditorCell key={cell.name} onClick={onClick} cell={cell} />
+                  ))}
+                </CellEditOptionsRowStyled>
+              </React.Fragment>
+            ))}
+          </CellEditOptionsStyled>
+          <button onClick={onClearSelect}>Clear selection</button>
+        </>
       ) : (
         <PStyled>Click on map's cell to edit</PStyled>
       )}

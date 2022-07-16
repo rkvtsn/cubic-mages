@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import { UseCellStyle } from "./useCellStyle";
 
-const TILE_CELL_SIZE = 30;
+const TILE_CELL_SIZE = 50;
 
 export const TileCellStyled = styled.div<UseCellStyle>`
-  display: block;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  vertical-align: middle;
   margin: 1px;
   width: ${TILE_CELL_SIZE}px;
   height: ${TILE_CELL_SIZE}px;
