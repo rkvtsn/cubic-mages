@@ -107,12 +107,6 @@ const Editor = () => {
         onChange={updateEditorPanelState}
         onClearSelect={handleOnClearSelect}
         onClick={handleOnClickPanel}
-        isPaintMode={
-          !!(
-            selectedCells?.length ||
-            editorPanelState.mode !== EditorModeEnum.Select
-          )
-        }
       />
     </EditorWrapperStyled>
   );

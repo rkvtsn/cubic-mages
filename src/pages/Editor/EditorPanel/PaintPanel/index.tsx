@@ -1,16 +1,18 @@
-import { CELLS_BY_GROUPS } from "constants/cells";
-import React, { memo } from "react";
+import React from "react";
+import { CELLS_BY_GROUPS, CELL_TYPES } from "constants/cells";
+import { EditorPanelState } from "pages/Editor/types";
 import { CellBaseModel } from "types/CellModel";
 import EditorCell from "../EditorCell";
 import { PStyled } from "../styled";
 import { CellEditOptionsRowStyled, CellEditOptionsStyled } from "./styles";
+import { useState } from "react";
 
 interface PaintPanelProps {
   onSelect: (cell: CellBaseModel) => void;
-  selected: string | undefined;
+  editorPanelState: EditorPanelState;
 }
 
-const PaintPanel = ({ onSelect, selected }: PaintPanelProps) => {
+const PaintPanel = ({ onSelect, editorPanelState }: PaintPanelProps) => {
   return (
     <CellEditOptionsStyled>
       {Object.keys(CELLS_BY_GROUPS).map((cellKey) => (
@@ -20,7 +22,7 @@ const PaintPanel = ({ onSelect, selected }: PaintPanelProps) => {
             {CELLS_BY_GROUPS[cellKey].map((cell) => (
               <EditorCell
                 key={cell.name}
-                isSelected={selected === cell.name}
+                isSelected={editorPanelState.cell?.name === cell.name}
                 onClick={onSelect}
                 cell={cell}
               />
@@ -32,4 +34,4 @@ const PaintPanel = ({ onSelect, selected }: PaintPanelProps) => {
   );
 };
 
-export default memo(PaintPanel);
+export default PaintPanel;

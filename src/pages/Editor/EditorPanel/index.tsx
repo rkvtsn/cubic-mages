@@ -4,10 +4,10 @@ import ControlPanel from "components/ControlPanel";
 import { EditorModeEnum, EditorPanelState } from "../types";
 import { CONTROL_BUTTONS } from "../constants";
 import PaintPanel from "./PaintPanel";
-import { EditorPanelWrapperStyled, PStyled } from "./styled";
+import { EditorPanelWrapperStyled } from "./styled";
+import { ClearButtonStyled } from "./styles";
 
 interface EditorPanelProps {
-  isPaintMode: boolean;
   onClick: (cell: CellBaseModel) => void;
   onClearSelect: () => void;
   editorPanelState: EditorPanelState;
@@ -19,7 +19,6 @@ const EditorPanel = ({
   onClick,
   editorPanelState,
   onChange,
-  isPaintMode,
 }: EditorPanelProps) => {
   const handleOnChange = useCallback(
     (mode: EditorModeEnum) => {
@@ -31,9 +30,10 @@ const EditorPanel = ({
 
   const handleClick = useCallback(
     (cell: CellBaseModel) => {
-      onClick(cell);
       if (editorPanelState.mode !== EditorModeEnum.Select) {
         onChange({ cell });
+      } else {
+        onClick(cell);
       }
     },
     [onClick, onChange, editorPanelState?.mode]
@@ -48,20 +48,13 @@ const EditorPanel = ({
           onChange={handleOnChange}
           selected={editorPanelState.mode}
         />
-        <div>
-          {editorPanelState.mode === EditorModeEnum.Select && (
-            <button onClick={onClearSelect}>Clear selection</button>
-          )}
-        </div>
+        {editorPanelState.mode === EditorModeEnum.Select && (
+          <ClearButtonStyled onClick={onClearSelect}>
+            Clear selection
+          </ClearButtonStyled>
+        )}
       </div>
-      {isPaintMode ? (
-        <PaintPanel
-          onSelect={handleClick}
-          selected={editorPanelState?.cell?.name}
-        />
-      ) : (
-        <PStyled>Click on map's cell to edit</PStyled>
-      )}
+      <PaintPanel onSelect={handleClick} editorPanelState={editorPanelState} />
     </EditorPanelWrapperStyled>
   );
 };
