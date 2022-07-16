@@ -60,7 +60,8 @@ default cell: "road"
  * 3 x 3 each tile
  * 24 tiles with 9 cells
  */
-import { CellBaseModel, CellType } from "types/CellModel";
+import { CellBaseModel } from "types/CellModel";
+import { COLOR_PALETTE } from "./colors";
 
 export const CELL_TYPES = ["Common", "StartLocation", "City", "Ruin"] as const;
 
@@ -76,90 +77,90 @@ const CELLS: CellBaseModel[] = [
   {
     name: "road",
     type: "Common",
-    background: "yellow",
+    background: COLOR_PALETTE.YellowField,
   },
   {
     name: "forest",
     type: "Common",
-    background: "green",
+    background: COLOR_PALETTE.GreenLime,
   },
   {
     name: "water",
     type: "Common",
-    background: "blue",
+    background: COLOR_PALETTE.BlueNavy,
   },
   {
     name: "rock",
     type: "Common",
-    background: "gray",
+    background: COLOR_PALETTE.GrayGranit,
   },
   // "Jail", "Chirch", "Stronghold"
   {
     name: "Jail",
     type: "StartLocation",
-    background: "black",
+    background: COLOR_PALETTE.BlackCetacean,
   },
   {
     name: "Chirch",
     type: "StartLocation",
-    background: "black",
+    background: COLOR_PALETTE.BlackBlue,
   },
   {
     name: "Stronghold",
     type: "StartLocation",
-    background: "black",
+    background: COLOR_PALETTE.BlackChinese,
   },
   // "Garnot", "Roderik", "Tildior", "Porlien", "Karoth", "Peltn"
   {
     name: "Garnot",
     type: "City",
-    background: "brown",
+    background: COLOR_PALETTE.BrownAuborn,
   },
   {
     name: "Roderik",
     type: "City",
-    background: "brown",
+    background: COLOR_PALETTE.BrownBean,
   },
   {
     name: "Tildior",
     type: "City",
-    background: "brown",
+    background: COLOR_PALETTE.BrownChocolate,
   },
   {
     name: "Porlien",
     type: "City",
-    background: "brown",
+    background: COLOR_PALETTE.BrownCoffee,
   },
   {
     name: "Karoth",
     type: "City",
-    background: "brown",
+    background: COLOR_PALETTE.BrownRusset,
   },
   {
     name: "Peltn",
     type: "City",
-    background: "brown",
+    background: COLOR_PALETTE.BrownSpicy,
   },
   // "fire", "camp", "cave", "temple"
   {
     name: "fire",
     type: "Ruin",
-    background: "#FFE6E6FA",
+    background: COLOR_PALETTE.PinkLittle,
   },
   {
     name: "camp",
     type: "Ruin",
-    background: "#FFE6E6FA",
+    background: COLOR_PALETTE.PinkMulbery,
   },
   {
     name: "cave",
     type: "Ruin",
-    background: "#FFE6E6FA",
+    background: COLOR_PALETTE.PinkRasberry,
   },
   {
     name: "temple",
     type: "Ruin",
-    background: "#FFE6E6FA",
+    background: COLOR_PALETTE.WhitePlatinum,
   },
 ];
 

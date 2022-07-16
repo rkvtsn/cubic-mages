@@ -5,15 +5,19 @@ import TileCell from "components/TileCell";
 import { CellBaseModel } from "types/CellModel";
 
 interface MapTileProps {
-  onClick: (tileId: number, cell: CellBaseModel) => void;
+  onClick: (
+    tileId: number,
+    cell: CellBaseModel,
+    e: React.MouseEvent<HTMLElement>
+  ) => void;
   currentCellId: number | null;
   tile: TileModel;
 }
 
 const MapTile = ({ tile, onClick, currentCellId }: MapTileProps) => {
   const handleOnCellClick = useCallback(
-    (cell: CellBaseModel) => {
-      onClick(tile.tileId, cell);
+    (cell: CellBaseModel, e: React.MouseEvent<HTMLElement>) => {
+      onClick(tile.tileId, cell, e);
     },
     [onClick, tile.tileId]
   );

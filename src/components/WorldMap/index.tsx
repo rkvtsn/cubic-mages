@@ -6,7 +6,11 @@ import { TileModel } from "types/TileModel";
 import { useMemo } from "react";
 
 interface WorldMapProps {
-  onClick?: (tileId: number, cellId: number) => void;
+  onClick?: (
+    tileId: number,
+    cellId: number,
+    e: React.MouseEvent<HTMLElement>
+  ) => void;
   worldMap: CellModel[];
   currentCellId: number | null;
 }
@@ -37,9 +41,9 @@ const unflatWorld = (cells: CellModel[]): TileModel[][] => {
 
 const WorldMap = ({ onClick, worldMap, currentCellId }: WorldMapProps) => {
   const handleClickOnCell = useCallback(
-    (tileId: number, cell: CellBaseModel) => {
+    (tileId: number, cell: CellBaseModel, e: React.MouseEvent<HTMLElement>) => {
       if (onClick) {
-        onClick(tileId, (cell as CellModel)?.id);
+        onClick(tileId, (cell as CellModel)?.id, e);
       }
     },
     [onClick]

@@ -14,7 +14,8 @@ const Editor = () => {
   const [currentCellId, setCurrentCellId] = useState<number | null>(null);
 
   const handleCellClick = useCallback(
-    (tileId: number, cellId: number) => {
+    (tileId: number, cellId: number, e: React.MouseEvent<HTMLElement>) => {
+      e.stopPropagation();
       setCurrentCellId(cellId);
     },
     [setCurrentCellId]
@@ -33,8 +34,12 @@ const Editor = () => {
     [setWorldMap, currentCellId]
   );
 
+  const handleOnClickOuter = useCallback(() => {
+    setCurrentCellId(null);
+  }, [setCurrentCellId]);
+
   return (
-    <EditorWrapperStyled>
+    <EditorWrapperStyled onClick={handleOnClickOuter}>
       <WorldMap
         worldMap={worldMap}
         currentCellId={currentCellId}

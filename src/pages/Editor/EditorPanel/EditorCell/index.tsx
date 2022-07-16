@@ -16,7 +16,7 @@ const EditorCell = ({ cell, onClick }: EditorCellProps) => {
   return (
     <EditorCellStyled>
       <TileCell onClick={handleOnClick} cell={cell} />
-      <div>- {cell.name}</div>
+      <div>{cell.name}</div>
     </EditorCellStyled>
   );
 };

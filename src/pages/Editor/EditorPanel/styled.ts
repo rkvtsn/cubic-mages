@@ -9,6 +9,7 @@ export const CellEditOptionsStyled = styled.div`
 export const CellEditOptionsRowStyled = styled.div`
   display: flex;
   margin-bottom: 10px;
+  gap: 4px;
 `;
 
 export const EditorPanelWrapperStyled = styled.div`
