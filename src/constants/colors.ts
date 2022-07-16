@@ -39,4 +39,6 @@ export enum COLOR_PALETTE {
 
   WhitePlatinum = "#E7E7E7",
   WhiteCoffee = "#e6ded2",
+
+  PanelBackground = "#FBF7F7",
 }

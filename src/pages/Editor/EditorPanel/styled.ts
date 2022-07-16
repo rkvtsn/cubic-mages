@@ -1,3 +1,4 @@
+import { COLOR_PALETTE } from "constants/colors";
 import styled from "styled-components";
 
 export const CellEditOptionsStyled = styled.div`
@@ -18,7 +19,8 @@ export const EditorPanelWrapperStyled = styled.div`
   flex-direction: column;
   align-items: start;
   padding: 10px;
-  background: #e0e0e0;
+  text-align: center;
+  background: ${COLOR_PALETTE.PanelBackground};
 `;
 
 export const PStyled = styled.p`
