@@ -16,35 +16,10 @@ const Editor = () => {
 
   const [selectedCells, setSelectedCells] = useState<number[]>([]);
 
-  const handleCellClick = useCallback(
-    (tileId: number, cellId: number, e: React.MouseEvent<HTMLElement>) => {
-      e.stopPropagation();
+  const [editorPanelState, , updateEditorPanelState] =
+    useStateUpdate<EditorPanelState>(DEFAULT_EDITOR_PANEL_STATE);
 
-      setSelectedCells((selectedCells) => {
-        let hasCell = false;
-        const selected: number[] = [];
-        for (let i = 0; i < selectedCells.length; i++) {
-          const selectedCell = selectedCells[i];
-          if (selectedCell === cellId) {
-            hasCell = true;
-          } else {
-            selected.push(selectedCell);
-          }
-        }
-        if (!hasCell) {
-          selected.push(cellId);
-        }
-        return selected;
-      });
-    },
-    [setSelectedCells]
-  );
-
-  const handleOnClearSelect = useCallback(() => {
-    setSelectedCells([]);
-  }, [setSelectedCells]);
-
-  const handleOnClickPanel = useCallback(
+  const changeWorldCell = useCallback(
     (cell: CellBaseModel) => {
       setWorldMap((oldWorld) =>
         oldWorld.map((oldCell) => {
@@ -54,13 +29,59 @@ const Editor = () => {
           return oldCell;
         })
       );
-      handleOnClearSelect();
     },
-    [setWorldMap, selectedCells, handleOnClearSelect]
+    [setWorldMap, selectedCells]
   );
 
-  const [editorPanelState, , updateEditorPanelState] =
-    useStateUpdate<EditorPanelState>(DEFAULT_EDITOR_PANEL_STATE);
+  const handleCellClick = useCallback(
+    (tileId: number, cellId: number, e: React.MouseEvent<HTMLElement>) => {
+      e.stopPropagation();
+
+      if (editorPanelState.mode === EditorModeEnum.Select) {
+        setSelectedCells((selectedCells) => {
+          let hasCell = false;
+          const selected: number[] = [];
+          for (let i = 0; i < selectedCells.length; i++) {
+            const selectedCell = selectedCells[i];
+            if (selectedCell === cellId) {
+              hasCell = true;
+            } else {
+              selected.push(selectedCell);
+            }
+          }
+          if (!hasCell) {
+            selected.push(cellId);
+          }
+          return selected;
+        });
+      } else if (
+        editorPanelState.mode === EditorModeEnum.Brush &&
+        editorPanelState.cell
+      ) {
+        setWorldMap((oldWorld) => {
+          return oldWorld.map((cell) => {
+            if (cellId === cell.id) {
+              return { ...cell, ...editorPanelState.cell };
+            }
+            return cell;
+          });
+        });
+      }
+    },
+    [setSelectedCells, editorPanelState]
+  );
+
+  const handleOnClearSelect = useCallback(() => {
+    setSelectedCells([]);
+  }, [setSelectedCells]);
+
+  const handleOnClickPanel = useCallback(
+    (cell: CellBaseModel) => {
+      changeWorldCell(cell);
+      handleOnClearSelect();
+    },
+    [changeWorldCell, handleOnClearSelect]
+  );
 
   return (
     <EditorWrapperStyled>
