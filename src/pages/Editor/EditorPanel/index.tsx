@@ -10,15 +10,15 @@ import {
 } from "./styled";
 
 interface EditorPanelProps {
-  currentCellId: number | null;
+  selectedCells: number[];
   onClick: (cell: CellBaseModel) => void;
 }
 
-const EditorPanel = ({ currentCellId, onClick }: EditorPanelProps) => {
+const EditorPanel = ({ selectedCells, onClick }: EditorPanelProps) => {
   return (
     <EditorPanelWrapperStyled>
       <h3>Editor Panel</h3>
-      {currentCellId ? (
+      {selectedCells?.length ? (
         <CellEditOptionsStyled>
           {Object.keys(CELLS_BY_GROUPS).map((cellKey) => (
             <React.Fragment key={cellKey}>
@@ -32,7 +32,7 @@ const EditorPanel = ({ currentCellId, onClick }: EditorPanelProps) => {
           ))}
         </CellEditOptionsStyled>
       ) : (
-        <PStyled>Click on map's cell to change</PStyled>
+        <PStyled>Click on map's cell to edit</PStyled>
       )}
     </EditorPanelWrapperStyled>
   );

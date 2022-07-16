@@ -11,41 +11,42 @@ const realWorld = generateWorld({ rows: ROWS, cols: COLS });
 const Editor = () => {
   const [worldMap, setWorldMap] = useState<CellModel[]>(realWorld);
 
-  const [currentCellId, setCurrentCellId] = useState<number | null>(null);
+  const [selectedCells, setSelectedCells] = useState<number[]>([]);
 
   const handleCellClick = useCallback(
     (tileId: number, cellId: number, e: React.MouseEvent<HTMLElement>) => {
       e.stopPropagation();
-      setCurrentCellId(cellId);
+      setSelectedCells((oldSelected) => [...new Set([...oldSelected, cellId])]);
     },
-    [setCurrentCellId]
+    [setSelectedCells]
   );
+
   const handleOnClickPanel = useCallback(
     (cell: CellBaseModel) => {
       setWorldMap((oldWorld) =>
         oldWorld.map((oldCell) => {
-          if (oldCell.id === currentCellId) {
+          if (selectedCells.includes(oldCell.id)) {
             return { ...oldCell, ...cell };
           }
           return oldCell;
         })
       );
     },
-    [setWorldMap, currentCellId]
+    [setWorldMap, selectedCells]
   );
 
   const handleOnClickOuter = useCallback(() => {
-    setCurrentCellId(null);
-  }, [setCurrentCellId]);
+    setSelectedCells([]);
+  }, [setSelectedCells]);
 
   return (
     <EditorWrapperStyled onClick={handleOnClickOuter}>
       <WorldMap
         worldMap={worldMap}
-        currentCellId={currentCellId}
+        selectedCells={selectedCells}
         onClick={handleCellClick}
       />
-      <EditorPanel onClick={handleOnClickPanel} currentCellId={currentCellId} />
+      <EditorPanel onClick={handleOnClickPanel} selectedCells={selectedCells} />
     </EditorWrapperStyled>
   );
 };

@@ -12,7 +12,7 @@ interface WorldMapProps {
     e: React.MouseEvent<HTMLElement>
   ) => void;
   worldMap: CellModel[];
-  currentCellId: number | null;
+  selectedCells: number[];
 }
 
 const unflatWorld = (cells: CellModel[]): TileModel[][] => {
@@ -39,7 +39,7 @@ const unflatWorld = (cells: CellModel[]): TileModel[][] => {
   return tiles;
 };
 
-const WorldMap = ({ onClick, worldMap, currentCellId }: WorldMapProps) => {
+const WorldMap = ({ onClick, worldMap, selectedCells }: WorldMapProps) => {
   const handleClickOnCell = useCallback(
     (tileId: number, cell: CellBaseModel, e: React.MouseEvent<HTMLElement>) => {
       if (onClick) {
@@ -63,7 +63,7 @@ const WorldMap = ({ onClick, worldMap, currentCellId }: WorldMapProps) => {
                 tile={tile}
                 key={`${tile.col}:${tile.row}`}
                 onClick={handleClickOnCell}
-                currentCellId={currentCellId}
+                selectedCells={selectedCells}
               />
             ))}
           </WorldMapRowStyled>

@@ -10,16 +10,23 @@ interface MapTileProps {
     cell: CellBaseModel,
     e: React.MouseEvent<HTMLElement>
   ) => void;
-  currentCellId: number | null;
+  selectedCells: number[];
   tile: TileModel;
 }
 
-const MapTile = ({ tile, onClick, currentCellId }: MapTileProps) => {
+const MapTile = ({ tile, onClick, selectedCells }: MapTileProps) => {
   const handleOnCellClick = useCallback(
     (cell: CellBaseModel, e: React.MouseEvent<HTMLElement>) => {
       onClick(tile.tileId, cell, e);
     },
     [onClick, tile.tileId]
+  );
+
+  const getIsSelected = useCallback(
+    (cellId: number) => {
+      return selectedCells.includes(cellId);
+    },
+    [selectedCells]
   );
 
   return (
@@ -28,7 +35,7 @@ const MapTile = ({ tile, onClick, currentCellId }: MapTileProps) => {
         <MapTileRowStyled key={i}>
           {cellRow.map((cell) => (
             <TileCell
-              isSelected={currentCellId === cell.id}
+              isSelected={getIsSelected(cell.id)}
               key={cell.id}
               cell={cell}
               onClick={handleOnCellClick}
