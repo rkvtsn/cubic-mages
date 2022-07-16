@@ -19,16 +19,28 @@ const Editor = () => {
     },
     [setCurrentCellId]
   );
-  const handleOnClickPanel = useCallback((cell: CellBaseModel) => {}, []);
+  const handleOnClickPanel = useCallback(
+    (cell: CellBaseModel) => {
+      setWorldMap((oldWorld) =>
+        oldWorld.map((oldCell) => {
+          if (oldCell.id === currentCellId) {
+            return { ...oldCell, ...cell };
+          }
+          return oldCell;
+        })
+      );
+    },
+    [setWorldMap, currentCellId]
+  );
 
   return (
     <EditorWrapperStyled>
-      <EditorPanel onClick={handleOnClickPanel} currentCellId={currentCellId} />
       <WorldMap
         worldMap={worldMap}
         currentCellId={currentCellId}
         onClick={handleCellClick}
       />
+      <EditorPanel onClick={handleOnClickPanel} currentCellId={currentCellId} />
     </EditorWrapperStyled>
   );
 };

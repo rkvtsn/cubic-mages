@@ -5,6 +5,7 @@ const TILE_CELL_SIZE = 30;
 
 export const TileCellStyled = styled.div<UseCellStyle>`
   display: block;
+  margin: 1px;
   width: ${TILE_CELL_SIZE}px;
   height: ${TILE_CELL_SIZE}px;
   background: ${(props) => props.background};

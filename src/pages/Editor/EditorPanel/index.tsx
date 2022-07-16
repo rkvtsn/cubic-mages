@@ -1,10 +1,12 @@
-import TileCell from "components/TileCell";
-import CELLS from "constants/cells";
+import React from "react";
+import { CELLS_BY_GROUPS } from "constants/cells";
 import { CellBaseModel } from "types/CellModel";
+import EditorCell from "./EditorCell";
 import {
-  CellLegendStyled,
-  CellListStyled,
+  CellEditOptionsRowStyled,
+  CellEditOptionsStyled,
   EditorPanelWrapperStyled,
+  PStyled,
 } from "./styled";
 
 interface EditorPanelProps {
@@ -12,20 +14,26 @@ interface EditorPanelProps {
   onClick: (cell: CellBaseModel) => void;
 }
 
-const EditorPanel = ({ currentCellId }: EditorPanelProps) => {
+const EditorPanel = ({ currentCellId, onClick }: EditorPanelProps) => {
   return (
     <EditorPanelWrapperStyled>
-      <h3>EditorPanel</h3>
+      <h3>Editor Panel</h3>
       {currentCellId ? (
-        <CellListStyled>
-          {CELLS.map((cell) => (
-            <CellLegendStyled key={cell.name}>
-              <TileCell onClick={() => {}} cell={cell} />
-              <div>- {cell.name}</div>
-            </CellLegendStyled>
+        <CellEditOptionsStyled>
+          {Object.keys(CELLS_BY_GROUPS).map((cellKey) => (
+            <React.Fragment key={cellKey}>
+              <PStyled>{cellKey}</PStyled>
+              <CellEditOptionsRowStyled>
+                {CELLS_BY_GROUPS[cellKey].map((cell) => (
+                  <EditorCell key={cell.name} onClick={onClick} cell={cell} />
+                ))}
+              </CellEditOptionsRowStyled>
+            </React.Fragment>
           ))}
-        </CellListStyled>
-      ) : null}
+        </CellEditOptionsStyled>
+      ) : (
+        <PStyled>Click on map's cell to change</PStyled>
+      )}
     </EditorPanelWrapperStyled>
   );
 };

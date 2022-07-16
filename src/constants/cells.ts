@@ -60,7 +60,7 @@ default cell: "road"
  * 3 x 3 each tile
  * 24 tiles with 9 cells
  */
-import { CellBaseModel } from "types/CellModel";
+import { CellBaseModel, CellType } from "types/CellModel";
 
 export const CELL_TYPES = ["Common", "StartLocation", "City", "Ruin"] as const;
 
@@ -162,6 +162,15 @@ const CELLS: CellBaseModel[] = [
     background: "#FFE6E6FA",
   },
 ];
+
+export const CELLS_BY_GROUPS: Record<string, CellBaseModel[]> = CELLS.reduce(
+  (result, cell) => {
+    if (!result[cell.type]) result[cell.type] = [];
+    result[cell.type].push(cell);
+    return result;
+  },
+  {} as Record<string, CellBaseModel[]>
+);
 
 export const CELLS_MAP: Record<string, CellBaseModel> = CELLS.reduce(
   (cellMap, cell) => {
