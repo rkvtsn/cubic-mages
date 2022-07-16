@@ -5,7 +5,7 @@ export type CellType = typeof CELL_TYPES[number];
 export interface CellBaseModel {
   name: string;
   type: CellType;
-  background: string;
+  background: string | string[];
 }
 
 export interface CellModel extends CellBaseModel {

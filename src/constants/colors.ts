@@ -1,5 +1,8 @@
 export enum COLOR_PALETTE {
   YellowField = "#F5CF8E",
+  YellowField1 = "#f5d88e",
+  YellowField2 = "#f5c78e",
+
   YellowTerra = "#DC7651",
   YellowCamel = "#bc9e6e",
 
@@ -7,7 +10,10 @@ export enum COLOR_PALETTE {
   RedRose = "#C62460",
 
   BlueBean = "#4B8195",
+
   BlueNavy = "#1271C2",
+  BlueNavy1 = "#1063ab",
+  BlueNavy2 = "#147eda",
 
   BrownSpicy = "#88534F",
   BrownCoffee = "#6C4C36",
@@ -17,13 +23,19 @@ export enum COLOR_PALETTE {
   BrownAuborn = "#972E22",
 
   GrayGranit = "#646468",
+  GrayGranit1 = "#58585b",
+  GrayGranit2 = "#717175",
+
   GrayCadet = "#aab1bc",
 
   GreenSheen = "#6AB0A5",
   GreenLime = "#97C90E",
   GreenOcean = "#59BC8C",
-  GreenAndroid = "#9fc146",
   GreenPistachio = "#A2D172",
+
+  GreenAndroid = "#9fc146",
+  GreenAndroid1 = "#91b23c",
+  GreenAndroid2 = "#a9c759",
 
   VioletBlue = "#59409B",
 

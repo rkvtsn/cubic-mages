@@ -8,22 +8,30 @@ import {
   EditorPanelWrapperStyled,
   PStyled,
 } from "./styled";
+import { EditorPanelState } from "../types";
+import Checkbox from "components/Checkbox";
 
 interface EditorPanelProps {
   selectedCells: number[];
   onClick: (cell: CellBaseModel) => void;
   onClearSelect: () => void;
+  editorPanelState: EditorPanelState;
+  onChange: (value: Partial<EditorPanelState>) => void;
 }
 
 const EditorPanel = ({
   selectedCells,
   onClearSelect,
   onClick,
+  editorPanelState,
+  onChange,
 }: EditorPanelProps) => {
+  const isPaintMode = selectedCells?.length || editorPanelState.isBrush;
+
   return (
     <EditorPanelWrapperStyled>
       <h3>Editor Panel</h3>
-      {selectedCells?.length ? (
+      {isPaintMode ? (
         <>
           <CellEditOptionsStyled>
             {Object.keys(CELLS_BY_GROUPS).map((cellKey) => (
@@ -40,7 +48,14 @@ const EditorPanel = ({
           <button onClick={onClearSelect}>Clear selection</button>
         </>
       ) : (
-        <PStyled>Click on map's cell to edit</PStyled>
+        <div>
+          <PStyled>Click on map's cell to edit</PStyled>
+          <Checkbox<EditorPanelState>
+            value={editorPanelState.isBrush}
+            name="isBrush"
+            onChange={onChange}
+          />
+        </div>
       )}
     </EditorPanelWrapperStyled>
   );

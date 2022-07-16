@@ -77,22 +77,38 @@ const CELLS: CellBaseModel[] = [
   {
     name: "road",
     type: "Common",
-    background: COLOR_PALETTE.YellowField,
+    background: [
+      COLOR_PALETTE.YellowField,
+      COLOR_PALETTE.YellowField1,
+      COLOR_PALETTE.YellowField2,
+    ],
   },
   {
     name: "forest",
     type: "Common",
-    background: COLOR_PALETTE.GreenLime,
+    background: [
+      COLOR_PALETTE.GreenAndroid,
+      COLOR_PALETTE.GreenAndroid1,
+      COLOR_PALETTE.GreenAndroid2,
+    ],
   },
   {
     name: "water",
     type: "Common",
-    background: COLOR_PALETTE.BlueNavy,
+    background: [
+      COLOR_PALETTE.BlueNavy,
+      COLOR_PALETTE.BlueNavy1,
+      COLOR_PALETTE.BlueNavy2,
+    ],
   },
   {
     name: "rock",
     type: "Common",
-    background: COLOR_PALETTE.GrayGranit,
+    background: [
+      COLOR_PALETTE.GrayGranit,
+      COLOR_PALETTE.GrayGranit1,
+      COLOR_PALETTE.GrayGranit2,
+    ],
   },
   // "Jail", "Chirch", "Stronghold"
   {
