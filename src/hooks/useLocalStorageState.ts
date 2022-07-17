@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { loadFromLocalStorage, saveToLocalStorage } from "utils/LocalStorage";
+import { loadFromLocalStorage, saveToLocalStorage } from "utils/localStorage";
 
 interface UseLocalStorageStateProps<T> {
   value: T;
