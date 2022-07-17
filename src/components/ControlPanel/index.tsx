@@ -1,5 +1,6 @@
-import { EditorModeEnum } from "pages/Editor/types";
 import React, { memo } from "react";
+import { EditorModeEnum } from "pages/Editor/types";
+import usePanelClickButton from "hooks/usePanelClickButton";
 import ControlPanelButton from "./ControlPanelButton";
 import { ControlButtonProps } from "./ControlPanelButton/types";
 import { ControlPanelStyled } from "./styled";
@@ -11,12 +12,7 @@ interface ControlPanelProps {
 }
 
 const ControlPanel = ({ buttons, selected, onChange }: ControlPanelProps) => {
-  const handleClick = (e: React.MouseEvent<HTMLInputElement>) => {
-    const button = e.target as HTMLButtonElement;
-    if (button) {
-      onChange(button.name as EditorModeEnum);
-    }
-  };
+  const handleClick = usePanelClickButton<EditorModeEnum>(onChange);
 
   return (
     <ControlPanelStyled onClick={handleClick}>

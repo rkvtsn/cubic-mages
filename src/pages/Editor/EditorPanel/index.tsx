@@ -4,14 +4,20 @@ import ControlPanel from "components/ControlPanel";
 import { EditorModeEnum, EditorPanelState } from "../types";
 import { CONTROL_BUTTONS } from "../constants";
 import PaintPanel from "./PaintPanel";
-import { EditorPanelWrapperStyled } from "./styled";
-import { ClearButtonStyled } from "./styles";
+import {
+  ClearButtonStyled,
+  EditorPanelWrapperStyled,
+  TitleStyled,
+} from "./styles";
+import SaveLoadMenu from "../SaveLoadMenu";
 
 interface EditorPanelProps {
   onClick: (cell: CellBaseModel) => void;
   onClearSelect: () => void;
   editorPanelState: EditorPanelState;
   onChange: (value: Partial<EditorPanelState>) => void;
+  onSave: (id: string) => void;
+  onLoad: (id: string) => void;
 }
 
 const EditorPanel = ({
@@ -19,6 +25,8 @@ const EditorPanel = ({
   onClick,
   editorPanelState,
   onChange,
+  onSave,
+  onLoad,
 }: EditorPanelProps) => {
   const handleOnChange = useCallback(
     (mode: EditorModeEnum) => {
@@ -28,7 +36,7 @@ const EditorPanel = ({
     [onChange, onClearSelect]
   );
 
-  const handleClick = useCallback(
+  const handleSelect = useCallback(
     (cell: CellBaseModel) => {
       if (editorPanelState.mode !== EditorModeEnum.Select) {
         onChange({ cell });
@@ -41,20 +49,22 @@ const EditorPanel = ({
 
   return (
     <EditorPanelWrapperStyled>
-      <h3>Editor Panel</h3>
-      <div>
-        <ControlPanel
-          buttons={CONTROL_BUTTONS}
-          onChange={handleOnChange}
-          selected={editorPanelState.mode}
-        />
-        {editorPanelState.mode === EditorModeEnum.Select && (
-          <ClearButtonStyled onClick={onClearSelect}>
-            Clear selection
-          </ClearButtonStyled>
-        )}
-      </div>
-      <PaintPanel onSelect={handleClick} editorPanelState={editorPanelState} />
+      <TitleStyled>
+        <h3>Editor Panel</h3>
+        <SaveLoadMenu onLoad={onLoad} onSave={onSave} />
+      </TitleStyled>
+
+      <ControlPanel
+        buttons={CONTROL_BUTTONS}
+        onChange={handleOnChange}
+        selected={editorPanelState.mode}
+      />
+      {editorPanelState.mode === EditorModeEnum.Select && (
+        <ClearButtonStyled onClick={onClearSelect}>
+          Clear selection
+        </ClearButtonStyled>
+      )}
+      <PaintPanel onSelect={handleSelect} editorPanelState={editorPanelState} />
     </EditorPanelWrapperStyled>
   );
 };

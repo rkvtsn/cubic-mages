@@ -3,11 +3,12 @@ import WorldMap from "components/WorldMap";
 import CellModel, { CellBaseModel } from "types/CellModel";
 import { COLS, ROWS } from "constants/cells";
 import generateWorld from "utils/generateWorld";
+import useStateUpdate from "hooks/useUpdateState";
 import { EditorModeEnum, EditorPanelState } from "./types";
 import { DEFAULT_EDITOR_PANEL_STATE } from "./constants";
-import { EditorWrapperStyled } from "./styles";
-import useStateUpdate from "./useUpdateState";
+import { EditorWrapperStyled, HeaderStyled, MainStyled } from "./styles";
 import EditorPanel from "./EditorPanel";
+import { loadFromLocalStorage, saveToLocalStorage } from "utils/LocalStorage";
 
 const realWorld = generateWorld({ rows: ROWS, cols: COLS });
 
@@ -30,7 +31,7 @@ const Editor = () => {
         })
       );
     },
-    [setWorldMap, selectedCells]
+    [selectedCells]
   );
 
   const handleCellClick = useCallback(
@@ -80,12 +81,12 @@ const Editor = () => {
         });
       }
     },
-    [setSelectedCells, editorPanelState]
+    [editorPanelState]
   );
 
   const handleOnClearSelect = useCallback(() => {
     setSelectedCells([]);
-  }, [setSelectedCells]);
+  }, []);
 
   const handleOnClickPanel = useCallback(
     (cell: CellBaseModel) => {
@@ -95,19 +96,41 @@ const Editor = () => {
     [changeWorldCell, handleOnClearSelect]
   );
 
+  const handleResetMap = useCallback(() => {
+    setWorldMap(generateWorld({ rows: ROWS, cols: COLS }));
+  }, []);
+
+  const handleOnSave = useCallback(
+    (id: string) => {
+      saveToLocalStorage<CellModel[]>(id, worldMap);
+    },
+    [worldMap]
+  );
+
+  const handleOnLoad = useCallback((id: string) => {
+    setWorldMap(loadFromLocalStorage<CellModel[]>(id, realWorld));
+  }, []);
+
   return (
     <EditorWrapperStyled>
-      <WorldMap
-        worldMap={worldMap}
-        selectedCells={selectedCells}
-        onClick={handleCellClick}
-      />
-      <EditorPanel
-        editorPanelState={editorPanelState}
-        onChange={updateEditorPanelState}
-        onClearSelect={handleOnClearSelect}
-        onClick={handleOnClickPanel}
-      />
+      <MainStyled>
+        <HeaderStyled>
+          <button onClick={handleResetMap}>Reset map</button>
+        </HeaderStyled>
+        <WorldMap
+          worldMap={worldMap}
+          selectedCells={selectedCells}
+          onClick={handleCellClick}
+        />
+        <EditorPanel
+          onSave={handleOnSave}
+          onLoad={handleOnLoad}
+          editorPanelState={editorPanelState}
+          onChange={updateEditorPanelState}
+          onClearSelect={handleOnClearSelect}
+          onClick={handleOnClickPanel}
+        />
+      </MainStyled>
     </EditorWrapperStyled>
   );
 };

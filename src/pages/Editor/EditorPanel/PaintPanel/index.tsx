@@ -1,11 +1,10 @@
 import React from "react";
-import { CELLS_BY_GROUPS, CELL_TYPES } from "constants/cells";
+import { CELLS_BY_GROUPS } from "constants/cells";
 import { EditorPanelState } from "pages/Editor/types";
 import { CellBaseModel } from "types/CellModel";
 import EditorCell from "../EditorCell";
-import { PStyled } from "../styled";
+import { PStyled } from "../styles";
 import { CellEditOptionsRowStyled, CellEditOptionsStyled } from "./styles";
-import { useState } from "react";
 
 interface PaintPanelProps {
   onSelect: (cell: CellBaseModel) => void;

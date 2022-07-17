@@ -1,4 +1,3 @@
-import TileCell from "components/TileCell";
 import { memo, useCallback } from "react";
 import { CellBaseModel } from "types/CellModel";
 import { EditorCellStyled, TileCellStyled } from "./styles";
