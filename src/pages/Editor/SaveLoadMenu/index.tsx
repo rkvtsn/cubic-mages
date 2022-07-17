@@ -50,10 +50,17 @@ const SaveLoadMenu = ({ onSave, onLoad }: SaveLoadMenuProps) => {
   }, [onSave, setSavedMaps]);
 
   const handleClickOnSavedMaps = useCallback(
-    (id: string) => {
-      onLoad(id);
+    (button: HTMLButtonElement) => {
+      if (button.value === "load") {
+        onLoad(button.name);
+      }
+      if (button.value === "delete") {
+        setSavedMaps((oldSaves) => {
+          return oldSaves.filter(({ id }) => id !== button.name);
+        });
+      }
     },
-    [onLoad]
+    [onLoad, setSavedMaps]
   );
 
   const handleClickSavedMaps = usePanelClickButton(handleClickOnSavedMaps);
@@ -70,7 +77,12 @@ const SaveLoadMenu = ({ onSave, onLoad }: SaveLoadMenuProps) => {
         <div onClick={handleClickSavedMaps}>
           {savedMaps.map((savedMap) => (
             <div key={savedMap.id}>
-              <button name={savedMap.id.toString()}>{savedMap.name}</button>
+              <button value="load" name={savedMap.id.toString()}>
+                {savedMap.name}
+              </button>
+              <button value="delete" name={savedMap.id.toString()}>
+                x
+              </button>
             </div>
           ))}
         </div>

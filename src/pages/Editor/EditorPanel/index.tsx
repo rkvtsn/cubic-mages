@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { ReactNode, useCallback } from "react";
 import { CellBaseModel } from "types/CellModel";
 import ControlPanel from "components/ControlPanel";
 import { EditorModeEnum, EditorPanelState } from "../types";
@@ -6,18 +6,17 @@ import { CONTROL_BUTTONS } from "../constants";
 import PaintPanel from "./PaintPanel";
 import {
   ClearButtonStyled,
+  EditorPanelTop,
   EditorPanelWrapperStyled,
   TitleStyled,
 } from "./styles";
-import SaveLoadMenu from "../SaveLoadMenu";
 
 interface EditorPanelProps {
   onClick: (cell: CellBaseModel) => void;
   onClearSelect: () => void;
   editorPanelState: EditorPanelState;
   onChange: (value: Partial<EditorPanelState>) => void;
-  onSave: (id: string) => void;
-  onLoad: (id: string) => void;
+  editorTopPanel: ReactNode;
 }
 
 const EditorPanel = ({
@@ -25,8 +24,7 @@ const EditorPanel = ({
   onClick,
   editorPanelState,
   onChange,
-  onSave,
-  onLoad,
+  editorTopPanel,
 }: EditorPanelProps) => {
   const handleOnChange = useCallback(
     (mode: EditorModeEnum) => {
@@ -49,9 +47,9 @@ const EditorPanel = ({
 
   return (
     <EditorPanelWrapperStyled>
+      <EditorPanelTop>{editorTopPanel}</EditorPanelTop>
       <TitleStyled>
         <h3>Editor Panel</h3>
-        <SaveLoadMenu onLoad={onLoad} onSave={onSave} />
       </TitleStyled>
 
       <ControlPanel

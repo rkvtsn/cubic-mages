@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import { memo, useCallback } from "react";
 import { EditorModeEnum } from "pages/Editor/types";
 import usePanelClickButton from "hooks/usePanelClickButton";
 import ControlPanelButton from "./ControlPanelButton";
@@ -12,7 +12,13 @@ interface ControlPanelProps {
 }
 
 const ControlPanel = ({ buttons, selected, onChange }: ControlPanelProps) => {
-  const handleClick = usePanelClickButton<EditorModeEnum>(onChange);
+  const handleOnChange = useCallback(
+    (button: HTMLButtonElement) => {
+      onChange(button.name as EditorModeEnum);
+    },
+    [onChange]
+  );
+  const handleClick = usePanelClickButton(handleOnChange);
 
   return (
     <ControlPanelStyled onClick={handleClick}>

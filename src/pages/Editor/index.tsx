@@ -9,6 +9,7 @@ import { DEFAULT_EDITOR_PANEL_STATE } from "./constants";
 import { EditorWrapperStyled, HeaderStyled, MainStyled } from "./styles";
 import EditorPanel from "./EditorPanel";
 import { loadFromLocalStorage, saveToLocalStorage } from "utils/LocalStorage";
+import SaveLoadMenu from "./SaveLoadMenu";
 
 const realWorld = generateWorld({ rows: ROWS, cols: COLS });
 
@@ -123,8 +124,9 @@ const Editor = () => {
           onClick={handleCellClick}
         />
         <EditorPanel
-          onSave={handleOnSave}
-          onLoad={handleOnLoad}
+          editorTopPanel={
+            <SaveLoadMenu onLoad={handleOnLoad} onSave={handleOnSave} />
+          }
           editorPanelState={editorPanelState}
           onChange={updateEditorPanelState}
           onClearSelect={handleOnClearSelect}
