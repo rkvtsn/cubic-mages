@@ -8,8 +8,8 @@ import { EditorModeEnum, EditorPanelState } from "./types";
 import { DEFAULT_EDITOR_PANEL_STATE } from "./constants";
 import { EditorWrapperStyled, HeaderStyled, MainStyled } from "./styles";
 import EditorPanel from "./EditorPanel";
-import { loadFromLocalStorage, saveToLocalStorage } from "utils/LocalStorage";
 import SaveLoadMenu from "./SaveLoadMenu";
+import { loadFromLocalStorage, saveToLocalStorage } from "utils/LocalStorage";
 
 const realWorld = generateWorld({ rows: ROWS, cols: COLS });
 

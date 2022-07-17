@@ -1,8 +1,8 @@
 import Modal from "components/Modal";
+import useLocalStorageState from "hooks/useLocalStorageState";
 import usePanelClickButton from "hooks/usePanelClickButton";
 import { useCallback, useState } from "react";
 import generateId from "utils/generateId";
-import useLocalStorageState from "utils/LocalStorage";
 import { ButtonMenuStyled } from "./styles";
 
 const DEFAULT_ARRAY: SavedMap[] = [];
@@ -58,6 +58,7 @@ const SaveLoadMenu = ({ onSave, onLoad }: SaveLoadMenuProps) => {
         setSavedMaps((oldSaves) => {
           return oldSaves.filter(({ id }) => id !== button.name);
         });
+        localStorage.removeItem(button.name);
       }
     },
     [onLoad, setSavedMaps]
