@@ -1,11 +1,11 @@
+import ROUTES from "constants/routes";
 import { Routes, Route } from "react-router-dom";
-import ROUTES from "./routes";
 
 const RouterView = () => {
   return (
     <Routes>
       {ROUTES.map((route) => (
-        <Route {...route} key={route.path} />
+        <Route path={route.path} element={route.element} key={route.path} />
       ))}
     </Routes>
   );

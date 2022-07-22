@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { RouterKeys } from "components/RouterView/routeKeys";
 import usePanelClickButton from "hooks/usePanelClickButton";
+import { RouterKeys } from "constants/routeKeys";
 
 const WelcomeBoard = () => {
   const navigate = useNavigate();

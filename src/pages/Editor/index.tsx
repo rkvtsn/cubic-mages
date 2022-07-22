@@ -10,8 +10,8 @@ import { EditorWrapperStyled, HeaderStyled, MainStyled } from "./styles";
 import EditorPanel from "./EditorPanel";
 import SaveLoadMenu from "./SaveLoadMenu";
 import { loadFromLocalStorage, saveToLocalStorage } from "utils/localStorage";
-import { RouterKeys } from "components/RouterView/routeKeys";
 import { useNavigate } from "react-router-dom";
+import { RouterKeys } from "constants/routeKeys";
 
 const realWorld = generateWorld({ rows: ROWS, cols: COLS });
 
