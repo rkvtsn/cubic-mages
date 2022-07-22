@@ -17,6 +17,6 @@ export const createCell = (
     tileRow,
     tileCol,
     tileId,
-    ...CELLS_MAP[name],
+    cell: { ...CELLS_MAP[name] },
   };
 };

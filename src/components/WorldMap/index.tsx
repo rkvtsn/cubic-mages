@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import MapTile from "components/MapTile";
-import CellModel, { CellBaseModel } from "types/CellModel";
+import CellModel from "types/CellModel";
 import { WorldMapRowStyled, WorldMapStyled, WorldMapWrapper } from "./styles";
 import { TileModel } from "types/TileModel";
 import { useMemo } from "react";
@@ -41,9 +41,9 @@ const unflatWorld = (cells: CellModel[]): TileModel[][] => {
 
 const WorldMap = ({ onClick, worldMap, selectedCells }: WorldMapProps) => {
   const handleClickOnCell = useCallback(
-    (tileId: number, cell: CellBaseModel, e: React.MouseEvent<HTMLElement>) => {
+    (tileId: number, cellId: number, e: React.MouseEvent<HTMLElement>) => {
       if (onClick) {
-        onClick(tileId, (cell as CellModel)?.id, e);
+        onClick(tileId, cellId, e);
       }
     },
     [onClick]

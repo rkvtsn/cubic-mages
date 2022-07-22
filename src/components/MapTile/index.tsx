@@ -7,7 +7,7 @@ import { CellBaseModel } from "types/CellModel";
 interface MapTileProps {
   onClick: (
     tileId: number,
-    cell: CellBaseModel,
+    cellId: number,
     e: React.MouseEvent<HTMLElement>
   ) => void;
   selectedCells: number[];
@@ -16,9 +16,10 @@ interface MapTileProps {
 
 const MapTile = ({ tile, onClick, selectedCells }: MapTileProps) => {
   const handleOnCellClick = useCallback(
-    (cell: CellBaseModel, e: React.MouseEvent<HTMLElement>) => {
-      onClick(tile.tileId, cell, e);
-    },
+    (cellId: number) =>
+      (cell: CellBaseModel, e: React.MouseEvent<HTMLElement>) => {
+        onClick(tile.tileId, cellId, e);
+      },
     [onClick, tile.tileId]
   );
 
@@ -37,8 +38,8 @@ const MapTile = ({ tile, onClick, selectedCells }: MapTileProps) => {
             <TileCell
               isSelected={getIsSelected(cell.id)}
               key={cell.id}
-              cell={cell}
-              onClick={handleOnCellClick}
+              cell={cell.cell}
+              onClick={handleOnCellClick(cell.id)}
             />
           ))}
         </MapTileRowStyled>

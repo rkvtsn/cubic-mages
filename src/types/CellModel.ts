@@ -9,7 +9,8 @@ export interface CellBaseModel {
   count?: number;
 }
 
-export interface CellModel extends CellBaseModel {
+export interface CellModel {
+  cell: CellBaseModel;
   id: number;
   row: number;
   col: number;

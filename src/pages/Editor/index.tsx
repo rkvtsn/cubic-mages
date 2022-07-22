@@ -26,7 +26,7 @@ const Editor = () => {
       setWorldMap((oldWorld) =>
         oldWorld.map((oldCell) => {
           if (selectedCells.includes(oldCell.id)) {
-            return { ...oldCell, ...cell };
+            return { ...oldCell, cell: { ...cell } };
           }
           return oldCell;
         })

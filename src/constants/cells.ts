@@ -1,77 +1,8 @@
-/**
-cells: "forest", "water", "rock", "road"
-default cell: "road"
-13 tiles - common locations with only common cells, 
-6 tiles - cities: Garnot, Roderik, Tildior, Porlien, Karoth, Peltn
-3 tiles - start locations: "Jail", "Chirch", "Stronghold"
-4 tiles - Ruins: 'fire', 'camp', 'cave', 'temple'
-*/
-
-// const COMMON_CELLS = ["road", "forest", "water", "rock"] as const;
-
-// const START_LOCATIONS_CELLS = ["Jail", "Chirch", "Stronghold"] as const;
-
-// const CITY_CELLS = [
-//   "Garnot",
-//   "Roderik",
-//   "Tildior",
-//   "Porlien",
-//   "Karoth",
-//   "Peltn",
-// ] as const;
-
-// const RUIN_CELLS = ["fire", "camp", "cave", "temple"] as const;
-
-// const getCellsBase = (
-//   cells: readonly string[],
-//   type: CellType,
-//   background: string
-// ): CellBaseModel[] => {
-//   return cells.map((cellKey, index) => {
-//     return {
-//       id: index,
-//       name: cellKey,
-//       type,
-//       background,
-//     };
-//   });
-// };
-
-// const RUIN = getCellsBase(RUIN_CELLS, "Ruin");
-// const COMMON = getCellsBase(COMMON_CELLS, "Common");
-// const CITY = getCellsBase(CITY_CELLS, "City");
-// const START_LOCATION = getCellsBase(START_LOCATIONS_CELLS, "StartLocation");
-
-// export const CELLS_LIBRARY_BASE: Record<CellType, CellBaseModel[]> = {
-//   Ruin: RUIN,
-//   Common: COMMON,
-//   City: CITY,
-//   StartLocation: START_LOCATION,
-// };
-
-// export const CELLS_LIBRARY_BASE_ALL: CellBaseModel[] = CELL_TYPES.reduce(
-//   (array: CellBaseModel[], type) => {
-//     return [...array, ...CELLS_LIBRARY_BASE[type]];
-//   },
-//   []
-// );
-/**
- * 4 x 6 tiles
- * 3 x 3 each tile
- * 24 tiles with 9 cells
- */
 import { CellBaseModel } from "types/CellModel";
 import { COLOR_PALETTE } from "./colors";
 
 export const CELL_TYPES = ["Common", "StartLocation", "City", "Ruin"] as const;
 
-/**
-"road", "forest", "water", "rock"
-"Jail", "Chirch", "Stronghold"
-"Garnot", "Roderik", "Tildior", "Porlien", "Karoth", "Peltn"
-"fire", "camp", "cave", "temple"
-"Common", "StartLocation", "City", "Ruin"
- */
 const CELLS: CellBaseModel[] = [
   // "road", "forest", "water", "rock"
   {

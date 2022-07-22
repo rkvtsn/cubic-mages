@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { RouterKeys } from "RouterView/routeKeys";
+import { RouterKeys } from "components/RouterView/routeKeys";
 
 const WelcomeBoard = () => {
   const navigate = useNavigate();
