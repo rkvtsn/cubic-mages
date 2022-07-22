@@ -1,3 +1,4 @@
+import { COLOR_PALETTE } from "constants/colors";
 import styled from "styled-components";
 
 export const EditorWrapperStyled = styled.div`
@@ -6,7 +7,10 @@ export const EditorWrapperStyled = styled.div`
   flex-direction: column;
 `;
 
-export const HeaderStyled = styled.div``;
+export const HeaderStyled = styled.header`
+  display: flex;
+  background: ${COLOR_PALETTE.PanelBackground};
+`;
 
 export const MainStyled = styled.div`
   display: flex;

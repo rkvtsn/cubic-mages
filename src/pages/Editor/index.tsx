@@ -10,6 +10,8 @@ import { EditorWrapperStyled, HeaderStyled, MainStyled } from "./styles";
 import EditorPanel from "./EditorPanel";
 import SaveLoadMenu from "./SaveLoadMenu";
 import { loadFromLocalStorage, saveToLocalStorage } from "utils/localStorage";
+import { RouterKeys } from "components/RouterView/routeKeys";
+import { useNavigate } from "react-router-dom";
 
 const realWorld = generateWorld({ rows: ROWS, cols: COLS });
 
@@ -112,12 +114,18 @@ const Editor = () => {
     setWorldMap(loadFromLocalStorage<CellModel[]>(id, realWorld));
   }, []);
 
+  const navigate = useNavigate();
+  const handleGoToPlayBoard = useCallback(() => {
+    navigate(RouterKeys.PlayBoard);
+  }, [navigate]);
+
   return (
     <EditorWrapperStyled>
+      <HeaderStyled>
+        <button onClick={handleResetMap}>Reset map</button>
+        <button onClick={handleGoToPlayBoard}>Go to PlayBoard</button>
+      </HeaderStyled>
       <MainStyled>
-        <HeaderStyled>
-          <button onClick={handleResetMap}>Reset map</button>
-        </HeaderStyled>
         <WorldMap
           worldMap={worldMap}
           selectedCells={selectedCells}
