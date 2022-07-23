@@ -1,4 +1,4 @@
-import { COLOR_PALETTE } from "constants/colors";
+import { ColorPalette } from "constants/colors";
 import styled from "styled-components";
 
 export const MainLayoutWrapperStyled = styled.div`
@@ -9,7 +9,7 @@ export const MainLayoutWrapperStyled = styled.div`
 
 export const HeaderStyled = styled.div`
   display: flex;
-  background: ${COLOR_PALETTE.PanelBackground};
+  background: ${ColorPalette.PanelBackground};
   flex: 1;
   align-items: center;
   gap: 4px;

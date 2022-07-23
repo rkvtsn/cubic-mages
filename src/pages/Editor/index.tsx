@@ -111,8 +111,7 @@ const Editor = () => {
 
   const navigate = useNavigate();
   const handleGoToPlayBoard = useCallback(() => {
-    console.log(worldMap.id);
-    if (worldMap.id) {
+    if (worldMap?.id) {
       navigate(generatePath(RouterKeys.PlayBoard, { id: worldMap.id }));
     }
   }, [navigate, worldMap?.id]);

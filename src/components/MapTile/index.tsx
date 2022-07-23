@@ -39,6 +39,7 @@ const MapTile = ({ tile, onClick, selectedCells }: MapTileProps) => {
               isSelected={getIsSelected(cell.id)}
               key={cell.id}
               cell={cell.cell}
+              player={cell.player}
               onClick={handleOnCellClick(cell.id)}
             />
           ))}

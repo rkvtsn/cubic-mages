@@ -1,5 +1,6 @@
 import { CellBaseModel } from "types/CellModel";
-import { COLOR_PALETTE } from "./colors";
+import { PlayerType } from "types/PlayerModel";
+import { ColorPalette } from "./colors";
 
 export const CELL_TYPES = ["Common", "StartLocation", "City", "Ruin"] as const;
 
@@ -9,117 +10,122 @@ const CELLS: CellBaseModel[] = [
     name: "road",
     type: "Common",
     background: [
-      COLOR_PALETTE.YellowField,
-      COLOR_PALETTE.YellowField1,
-      COLOR_PALETTE.YellowField2,
+      ColorPalette.YellowField,
+      ColorPalette.YellowField1,
+      ColorPalette.YellowField2,
     ],
   },
   {
     name: "forest",
     type: "Common",
     background: [
-      COLOR_PALETTE.GreenAndroid,
-      COLOR_PALETTE.GreenAndroid1,
-      COLOR_PALETTE.GreenAndroid2,
+      ColorPalette.GreenAndroid,
+      ColorPalette.GreenAndroid1,
+      ColorPalette.GreenAndroid2,
     ],
+    playerTypeStartLocation: PlayerType.Druid,
   },
   {
     name: "water",
     type: "Common",
     background: [
-      COLOR_PALETTE.BlueNavy,
-      COLOR_PALETTE.BlueNavy1,
-      COLOR_PALETTE.BlueNavy2,
+      ColorPalette.BlueNavy,
+      ColorPalette.BlueNavy1,
+      ColorPalette.BlueNavy2,
     ],
   },
   {
     name: "rock",
     type: "Common",
     background: [
-      COLOR_PALETTE.GrayGranit,
-      COLOR_PALETTE.GrayGranit1,
-      COLOR_PALETTE.GrayGranit2,
+      ColorPalette.GrayGranit,
+      ColorPalette.GrayGranit1,
+      ColorPalette.GrayGranit2,
     ],
   },
   // "Jail", "Chirch", "Stronghold"
   {
     name: "Jail",
     type: "StartLocation",
-    background: COLOR_PALETTE.BlackCetacean,
+    background: ColorPalette.BlackCetacean,
     count: 1,
+    playerTypeStartLocation: PlayerType.Witch,
   },
   {
     name: "Chirch",
     type: "StartLocation",
-    background: COLOR_PALETTE.BlackBlue,
+    background: ColorPalette.BlackBlue,
     count: 1,
+    playerTypeStartLocation: PlayerType.Paladin,
   },
   {
     name: "Stronghold",
     type: "StartLocation",
-    background: COLOR_PALETTE.BlackChinese,
+    background: ColorPalette.BlackChinese,
     count: 1,
+    playerTypeStartLocation: PlayerType.Witcher,
   },
   // "Garnot", "Roderik", "Tildior", "Porlien", "Karoth", "Peltn"
   {
     name: "Garnot",
     type: "City",
-    background: COLOR_PALETTE.BrownAuborn,
+    background: ColorPalette.BrownAuborn,
     count: 1,
   },
   {
     name: "Roderik",
     type: "City",
-    background: COLOR_PALETTE.BrownBean,
+    background: ColorPalette.BrownBean,
     count: 1,
+    playerTypeStartLocation: PlayerType.Sorcerer,
   },
   {
     name: "Tildior",
     type: "City",
-    background: COLOR_PALETTE.BrownChocolate,
+    background: ColorPalette.BrownChocolate,
     count: 1,
   },
   {
     name: "Porlien",
     type: "City",
-    background: COLOR_PALETTE.BrownCoffee,
+    background: ColorPalette.BrownCoffee,
     count: 1,
   },
   {
     name: "Karoth",
     type: "City",
-    background: COLOR_PALETTE.BrownRusset,
+    background: ColorPalette.BrownRusset,
     count: 1,
   },
   {
     name: "Peltn",
     type: "City",
-    background: COLOR_PALETTE.BrownSpicy,
+    background: ColorPalette.BrownSpicy,
     count: 1,
   },
   // "fire", "camp", "cave", "temple"
   {
     name: "fire",
     type: "Ruin",
-    background: COLOR_PALETTE.PinkLittle,
+    background: ColorPalette.PinkLittle,
     count: 1,
   },
   {
     name: "camp",
     type: "Ruin",
-    background: COLOR_PALETTE.PinkMulbery,
+    background: ColorPalette.PinkMulbery,
     count: 1,
   },
   {
     name: "cave",
     type: "Ruin",
-    background: COLOR_PALETTE.PinkRasberry,
+    background: ColorPalette.PinkRasberry,
     count: 1,
   },
   {
     name: "temple",
     type: "Ruin",
-    background: COLOR_PALETTE.WhitePlatinum,
+    background: ColorPalette.WhitePlatinum,
     count: 1,
   },
 ];

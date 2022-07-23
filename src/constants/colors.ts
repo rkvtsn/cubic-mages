@@ -1,4 +1,4 @@
-export enum COLOR_PALETTE {
+export enum ColorPalette {
   YellowField = "#F5CF8E",
   YellowField1 = "#f5d88e",
   YellowField2 = "#f5c78e",
@@ -53,4 +53,12 @@ export enum COLOR_PALETTE {
   WhiteCoffee = "#e6ded2",
 
   PanelBackground = "#FBF7F7",
+}
+
+export enum ColorPlayer {
+  Green = "#9AE542",
+  Pink = "#F13F8B",
+  Orange = "#FF8C21",
+  Blue = "#5D4AFF",
+  Yellow = "#FFD01F",
 }

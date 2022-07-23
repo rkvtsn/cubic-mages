@@ -1,4 +1,4 @@
-import { COLOR_PALETTE } from "constants/colors";
+import { ColorPalette } from "constants/colors";
 import styled from "styled-components";
 
 export const ModalWrapperStyled = styled.div`
@@ -26,7 +26,7 @@ export const ModalWindowTitleStyled = styled.div`
   display: flex;
   height: 20px;
   flex: 1;
-  background: ${COLOR_PALETTE.WhitePlatinum};
+  background: ${ColorPalette.WhitePlatinum};
 `;
 
 export const ModalWindowTitleTextStyled = styled.div`
