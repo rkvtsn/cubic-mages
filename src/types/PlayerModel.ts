@@ -1,16 +1,9 @@
 import { ColorPlayer } from "constants/colors";
-
-export enum PlayerType {
-  Paladin,
-  Witcher,
-  Sorcerer,
-  Witch,
-  Druid,
-}
+import { CharacterType } from "./CharacterModel";
 
 export interface PlayerModel {
   id: string;
   name: string;
   color: ColorPlayer;
-  type: PlayerType;
+  type: CharacterType;
 }

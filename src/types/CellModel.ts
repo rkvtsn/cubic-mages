@@ -1,19 +1,19 @@
-import { CELL_TYPES } from "constants/cells";
+import { CELL_NAMES, CELL_TYPES } from "constants/cells";
 import EffectModel from "./EffectModel";
-import { PlayerModel, PlayerType } from "./PlayerModel";
+import { PlayerModel } from "./PlayerModel";
 
 export type CellType = typeof CELL_TYPES[number];
+export type CellNameType = typeof CELL_NAMES[number];
 
 export interface CellBaseModel {
-  name: string;
+  name: CellNameType;
   type: CellType;
   background: string | string[];
   count?: number;
-  playerTypeStartLocation?: PlayerType;
 }
 
 export interface CellModel {
-  cell: CellBaseModel;
+  cellName: string;
   id: number;
   row: number;
   col: number;

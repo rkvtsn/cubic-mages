@@ -1,8 +1,27 @@
 import { CellBaseModel } from "types/CellModel";
-import { PlayerType } from "types/PlayerModel";
 import { ColorPalette } from "./colors";
 
 export const CELL_TYPES = ["Common", "StartLocation", "City", "Ruin"] as const;
+
+export const CELL_NAMES = [
+  "road",
+  "forest",
+  "water",
+  "rock",
+  "Jail",
+  "Chirch",
+  "Stronghold",
+  "Garnot",
+  "Roderik",
+  "Tildior",
+  "Porlien",
+  "Karoth",
+  "Peltn",
+  "fire",
+  "camp",
+  "cave",
+  "temple",
+] as const;
 
 const CELLS: CellBaseModel[] = [
   // "road", "forest", "water", "rock"
@@ -23,7 +42,6 @@ const CELLS: CellBaseModel[] = [
       ColorPalette.GreenAndroid1,
       ColorPalette.GreenAndroid2,
     ],
-    playerTypeStartLocation: PlayerType.Druid,
   },
   {
     name: "water",
@@ -49,21 +67,18 @@ const CELLS: CellBaseModel[] = [
     type: "StartLocation",
     background: ColorPalette.BlackCetacean,
     count: 1,
-    playerTypeStartLocation: PlayerType.Witch,
   },
   {
     name: "Chirch",
     type: "StartLocation",
     background: ColorPalette.BlackBlue,
     count: 1,
-    playerTypeStartLocation: PlayerType.Paladin,
   },
   {
     name: "Stronghold",
     type: "StartLocation",
     background: ColorPalette.BlackChinese,
     count: 1,
-    playerTypeStartLocation: PlayerType.Witcher,
   },
   // "Garnot", "Roderik", "Tildior", "Porlien", "Karoth", "Peltn"
   {
@@ -77,7 +92,6 @@ const CELLS: CellBaseModel[] = [
     type: "City",
     background: ColorPalette.BrownBean,
     count: 1,
-    playerTypeStartLocation: PlayerType.Sorcerer,
   },
   {
     name: "Tildior",

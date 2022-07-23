@@ -1,4 +1,4 @@
-import { CELLS_MAP, DEFAULT_CELL_KEY } from "constants/cells";
+import { DEFAULT_CELL_KEY } from "constants/cells";
 import CellModel from "types/CellModel";
 import generateId from "./generateId";
 
@@ -17,6 +17,6 @@ export const createCell = (
     tileRow,
     tileCol,
     tileId,
-    cell: { ...CELLS_MAP[name] },
+    cellName: name,
   };
 };

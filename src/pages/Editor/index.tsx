@@ -1,7 +1,6 @@
 import { useState, useCallback } from "react";
 import { generatePath, useNavigate } from "react-router-dom";
 import WorldMap from "components/WorldMap";
-import { CellBaseModel } from "types/CellModel";
 import { COLS, ROWS } from "constants/cells";
 import generateWorld from "utils/generateWorld";
 import useStateUpdate from "hooks/useUpdateState";
@@ -25,8 +24,8 @@ const Editor = () => {
     useStateUpdate<EditorPanelState>(DEFAULT_EDITOR_PANEL_STATE);
 
   const changeWorldCell = useCallback(
-    (cell: CellBaseModel) => {
-      changeCellInWorld(cell, setWorldMap, (oldCell) =>
+    (cellName: string) => {
+      changeCellInWorld(cellName, setWorldMap, (oldCell) =>
         selectedCells.includes(oldCell.id)
       );
     },
@@ -56,19 +55,19 @@ const Editor = () => {
         });
       } else if (
         editorPanelState.mode === EditorModeEnum.Brush &&
-        editorPanelState.cell
+        editorPanelState.brush
       ) {
         changeCellInWorld(
-          editorPanelState.cell,
+          editorPanelState.brush,
           setWorldMap,
           (oldCell) => cellId === oldCell.id
         );
       } else if (
         editorPanelState.mode === EditorModeEnum.Tile &&
-        editorPanelState.cell
+        editorPanelState.brush
       ) {
         changeCellInWorld(
-          editorPanelState.cell,
+          editorPanelState.brush,
           setWorldMap,
           (oldCell) => tileId === oldCell.tileId
         );
@@ -82,8 +81,8 @@ const Editor = () => {
   }, []);
 
   const handleOnClickPanel = useCallback(
-    (cell: CellBaseModel) => {
-      changeWorldCell(cell);
+    (cellName: string) => {
+      changeWorldCell(cellName);
       handleOnClearSelect();
     },
     [changeWorldCell, handleOnClearSelect]

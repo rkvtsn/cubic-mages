@@ -1,5 +1,4 @@
 import { memo, useCallback } from "react";
-import { CellBaseModel } from "types/CellModel";
 import ControlPanel from "components/ControlPanel";
 import { EditorModeEnum, EditorPanelState } from "../types";
 import { CONTROL_BUTTONS } from "../constants";
@@ -11,7 +10,7 @@ import {
 } from "./styles";
 
 interface EditorPanelProps {
-  onClick: (cell: CellBaseModel) => void;
+  onClick: (cellName: string) => void;
   onClearSelect: () => void;
   editorPanelState: EditorPanelState;
   onChange: (value: Partial<EditorPanelState>) => void;
@@ -26,17 +25,17 @@ const EditorPanel = ({
   const handleOnChange = useCallback(
     (mode: EditorModeEnum) => {
       onClearSelect();
-      onChange({ mode, cell: null });
+      onChange({ mode, brush: null });
     },
     [onChange, onClearSelect]
   );
 
   const handleSelect = useCallback(
-    (cell: CellBaseModel) => {
+    (cellName: string) => {
       if (editorPanelState.mode !== EditorModeEnum.Select) {
-        onChange({ cell });
+        onChange({ brush: cellName });
       } else {
-        onClick(cell);
+        onClick(cellName);
       }
     },
     [onClick, onChange, editorPanelState?.mode]

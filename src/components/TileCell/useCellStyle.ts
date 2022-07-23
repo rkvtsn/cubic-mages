@@ -1,29 +1,27 @@
 import { CELLS_MAP } from "constants/cells";
-import { CellBaseModel } from "types/CellModel";
+import { useMemo } from "react";
+import getRandomFromArray from "utils/getRandomFromArray";
 
 export interface UseCellStyle {
   background: string;
   selected: boolean;
 }
-
-const getRandomFromArray = <T>(array: T[]): T => {
-  return array[Math.floor(Math.random() * array.length)];
-};
-
 export const useCellStyle = (
-  { name, type }: CellBaseModel,
+  cellName: string,
   isSelected: boolean,
   isStatic: boolean
 ): UseCellStyle => {
-  const background = !Array.isArray(CELLS_MAP[name]?.background)
-    ? (CELLS_MAP[name]?.background as string)
-    : (isStatic && CELLS_MAP[name]?.background[0]) ||
-      getRandomFromArray<string>(CELLS_MAP[name]?.background as []);
-  const style = {
+  const background = useMemo(() => {
+    return !Array.isArray(CELLS_MAP[cellName]?.background)
+      ? (CELLS_MAP[cellName]?.background as string)
+      : (isStatic && CELLS_MAP[cellName]?.background[0]) ||
+          getRandomFromArray<string>(CELLS_MAP[cellName]?.background as []);
+  }, [cellName, isStatic]);
+
+  return {
     background,
     selected: isSelected,
   };
-  return style;
 };
 
 export default useCellStyle;

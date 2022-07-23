@@ -1,8 +1,6 @@
-import { CellBaseModel } from "types/CellModel";
-
 export interface EditorPanelState {
   mode: EditorModeEnum;
-  cell: CellBaseModel | null;
+  brush: string | null;
 }
 
 export enum EditorModeEnum {

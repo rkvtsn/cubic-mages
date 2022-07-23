@@ -2,7 +2,6 @@ import { useCallback } from "react";
 import { TileModel } from "types/TileModel";
 import { MapTileRowStyled, MapTileWrapperStyled } from "./styles";
 import TileCell from "components/TileCell";
-import { CellBaseModel } from "types/CellModel";
 
 interface MapTileProps {
   onClick: (
@@ -16,10 +15,9 @@ interface MapTileProps {
 
 const MapTile = ({ tile, onClick, selectedCells }: MapTileProps) => {
   const handleOnCellClick = useCallback(
-    (cellId: number) =>
-      (cell: CellBaseModel, e: React.MouseEvent<HTMLElement>) => {
-        onClick(tile.tileId, cellId, e);
-      },
+    (cellId: number) => (cellName: string, e: React.MouseEvent<HTMLElement>) => {
+      onClick(tile.tileId, cellId, e);
+    },
     [onClick, tile.tileId]
   );
 
@@ -38,7 +36,7 @@ const MapTile = ({ tile, onClick, selectedCells }: MapTileProps) => {
             <TileCell
               isSelected={getIsSelected(cell.id)}
               key={cell.id}
-              cell={cell.cell}
+              cellName={cell.cellName}
               player={cell.player}
               onClick={handleOnCellClick(cell.id)}
             />

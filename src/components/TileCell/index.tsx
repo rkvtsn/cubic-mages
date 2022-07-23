@@ -1,5 +1,4 @@
 import { memo, useCallback } from "react";
-import { CellBaseModel } from "types/CellModel";
 import EffectModel from "types/EffectModel";
 import { PlayerModel } from "types/PlayerModel";
 import EffectCell from "./EffectCell";
@@ -8,8 +7,8 @@ import { TileCellStyled } from "./styles";
 import useCellStyle from "./useCellStyle";
 
 export interface TileCellProps {
-  onClick: (cell: CellBaseModel, e: React.MouseEvent<HTMLElement>) => void;
-  cell: CellBaseModel;
+  onClick: (cellName: string, e: React.MouseEvent<HTMLElement>) => void;
+  cellName: string;
   isSelected?: boolean;
   isStatic?: boolean;
   className?: string;
@@ -19,7 +18,7 @@ export interface TileCellProps {
 
 const TileCell = ({
   onClick,
-  cell,
+  cellName,
   isSelected = false,
   isStatic = false,
   className,
@@ -28,12 +27,12 @@ const TileCell = ({
 }: TileCellProps) => {
   const handleOnClick = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
-      onClick(cell, e);
+      onClick(cellName, e);
     },
-    [cell, onClick]
+    [cellName, onClick]
   );
 
-  const styles = useCellStyle(cell, isSelected, isStatic);
+  const styles = useCellStyle(cellName, isSelected, isStatic);
 
   return (
     <TileCellStyled className={className} {...styles} onClick={handleOnClick}>
