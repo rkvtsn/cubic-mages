@@ -5,6 +5,7 @@ const TILE_CELL_SIZE = 50;
 
 export const TileCellStyled = styled.div<UseCellStyle>`
   display: flex;
+  position: relative;
   align-items: center;
   text-align: center;
   justify-content: center;

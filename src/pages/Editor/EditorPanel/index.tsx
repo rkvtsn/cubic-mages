@@ -1,4 +1,4 @@
-import { ReactNode, useCallback } from "react";
+import { memo, useCallback } from "react";
 import { CellBaseModel } from "types/CellModel";
 import ControlPanel from "components/ControlPanel";
 import { EditorModeEnum, EditorPanelState } from "../types";
@@ -6,7 +6,6 @@ import { CONTROL_BUTTONS } from "../constants";
 import PaintPanel from "./PaintPanel";
 import {
   ClearButtonStyled,
-  EditorPanelTop,
   EditorPanelWrapperStyled,
   TitleStyled,
 } from "./styles";
@@ -16,7 +15,6 @@ interface EditorPanelProps {
   onClearSelect: () => void;
   editorPanelState: EditorPanelState;
   onChange: (value: Partial<EditorPanelState>) => void;
-  editorTopPanel?: ReactNode;
 }
 
 const EditorPanel = ({
@@ -24,7 +22,6 @@ const EditorPanel = ({
   onClick,
   editorPanelState,
   onChange,
-  editorTopPanel,
 }: EditorPanelProps) => {
   const handleOnChange = useCallback(
     (mode: EditorModeEnum) => {
@@ -47,7 +44,6 @@ const EditorPanel = ({
 
   return (
     <EditorPanelWrapperStyled>
-      <EditorPanelTop>{editorTopPanel}</EditorPanelTop>
       <TitleStyled>
         <h3>Editor Panel</h3>
       </TitleStyled>
@@ -67,4 +63,4 @@ const EditorPanel = ({
   );
 };
 
-export default EditorPanel;
+export default memo(EditorPanel);

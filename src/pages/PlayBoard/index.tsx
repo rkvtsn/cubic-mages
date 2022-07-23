@@ -1,23 +1,35 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { PlayBoardWrapperStyled } from "./styles";
 
 import WorldModel from "types/WorldModel";
 import { REAL_WORLD } from "pages/Editor/constants";
+import MainLayout from "components/MainLayout";
+import WorldMap from "components/WorldMap";
+import { loadFromLocalStorage } from "utils/localStorage";
 
 const PlayBoard = () => {
-  const { id: worldId } = useParams<{ id?: string }>();
+  const { id: worldId } = useParams<{ id: string }>();
   const [worldMap, setWorldMap] = useState<WorldModel>(REAL_WORLD);
 
-  useEffect(() => {}, [worldId]);
+  useEffect(() => {
+    if (worldId) {
+      setWorldMap(loadFromLocalStorage(worldId, REAL_WORLD));
+    }
+  }, [worldId]);
+
+  const handleCellClick = useCallback(() => {}, []);
+  const handleNewDay = useCallback(() => {}, []);
 
   return (
-    <PlayBoardWrapperStyled>
-      <div>
-        <button value={""} name=""></button>
-      </div>
-      <div>{/* <WorldMap worldMap={worldMap} /> */}</div>
-    </PlayBoardWrapperStyled>
+    <MainLayout
+      header={
+        <>
+          <button onClick={handleNewDay}>New day</button>
+        </>
+      }
+    >
+      <WorldMap worldMap={worldMap} onClick={handleCellClick} />
+    </MainLayout>
   );
 };
 

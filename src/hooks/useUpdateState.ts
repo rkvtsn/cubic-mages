@@ -11,14 +11,11 @@ export default function useStateUpdate<T extends Object>(
 ): UseStateUpdate<T> {
   const [value, setValue] = useState<T>(defaultValue);
 
-  const updateValue = useCallback(
-    (newValue: Partial<T>) => {
-      setValue((oldValue) => {
-        return { ...oldValue, ...newValue };
-      });
-    },
-    [setValue]
-  );
+  const updateValue = useCallback((newValue: Partial<T>) => {
+    setValue((oldValue) => {
+      return { ...oldValue, ...newValue };
+    });
+  }, []);
 
   return [value, setValue, updateValue];
 }

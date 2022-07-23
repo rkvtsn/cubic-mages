@@ -1,4 +1,5 @@
 import { CELL_TYPES } from "constants/cells";
+import EffectModel from "./EffectModel";
 
 export type CellType = typeof CELL_TYPES[number];
 
@@ -17,6 +18,7 @@ export interface CellModel {
   tileId: number;
   tileRow: number;
   tileCol: number;
+  effect?: EffectModel | null;
 }
 
 export default CellModel;

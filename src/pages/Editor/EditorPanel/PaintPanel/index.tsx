@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { CELLS_BY_GROUPS } from "constants/cells";
 import { EditorPanelState } from "pages/Editor/types";
 import { CellBaseModel } from "types/CellModel";
@@ -33,4 +33,4 @@ const PaintPanel = ({ onSelect, editorPanelState }: PaintPanelProps) => {
   );
 };
 
-export default PaintPanel;
+export default memo(PaintPanel);

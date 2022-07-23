@@ -1,7 +1,7 @@
 import CellModel from "./CellModel";
 
 export interface WorldModel {
-  id: string;
+  id: string | null;
   name: string;
   world: CellModel[];
 }

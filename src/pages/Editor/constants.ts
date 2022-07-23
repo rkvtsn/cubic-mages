@@ -28,7 +28,7 @@ export const DEFAULT_EDITOR_PANEL_STATE: EditorPanelState = {
 };
 
 export const REAL_WORLD: WorldModel = {
-  id: generateId().toString(),
+  id: null,
   name: generateName(DICT_WORLD),
   world: generateWorld({ rows: ROWS, cols: COLS }),
 };

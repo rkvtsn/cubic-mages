@@ -1,5 +1,5 @@
 export enum RouterKeys {
   WelcomeBoard = "/",
   Editor = "/editor",
-  PlayBoard = "/playboard",
+  PlayBoard = "/playboard/:id",
 }

@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import MapTile from "components/MapTile";
 import WorldModel from "types/WorldModel";
 import unflatWorld from "./unflatWorld";
@@ -52,4 +52,4 @@ const WorldMap = ({ onClick, worldMap, selectedCells }: WorldMapProps) => {
   );
 };
 
-export default WorldMap;
+export default memo(WorldMap);

@@ -38,18 +38,22 @@ const SaveLoadMenu = ({
   >("savedMaps", DEFAULT_ARRAY);
 
   const saveMap = useCallback(() => {
-    const savedMap = newSavedMap(world.name);
+    const savedMap = newSavedMap();
     setSavedMaps((oldSaves) => {
       return [...oldSaves, savedMap];
     });
-    saveToLocalStorage(world.id, world);
+    saveToLocalStorage(savedMap.id, {
+      id: savedMap.id,
+      name: savedMap.name,
+      world: world.world,
+    });
     onSave(savedMap);
   }, [onSave, setSavedMaps, world]);
 
   const handleClickOnSavedMaps = useCallback(
     (button: HTMLButtonElement) => {
       if (button.value === "load") {
-        onLoad(loadFromLocalStorage<WorldModel>(world.id, world));
+        onLoad(loadFromLocalStorage<WorldModel>(button.name, world));
       }
       if (button.value === "delete") {
         setSavedMaps((oldSaves) => {

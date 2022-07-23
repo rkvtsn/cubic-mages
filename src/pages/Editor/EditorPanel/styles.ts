@@ -28,7 +28,3 @@ export const TitleStyled = styled.div`
   width: 100%;
   justify-content: center;
 `;
-
-export const EditorPanelTop = styled.div`
-  width: 100%;
-`;

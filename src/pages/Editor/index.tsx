@@ -1,11 +1,10 @@
 import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { generatePath, useNavigate } from "react-router-dom";
 import WorldMap from "components/WorldMap";
-import CellModel, { CellBaseModel } from "types/CellModel";
+import { CellBaseModel } from "types/CellModel";
 import { COLS, ROWS } from "constants/cells";
 import generateWorld from "utils/generateWorld";
 import useStateUpdate from "hooks/useUpdateState";
-import { saveToLocalStorage } from "utils/localStorage";
 import EditorPanel from "./EditorPanel";
 import SaveLoadMenu from "./SaveLoadMenu";
 import { EditorModeEnum, EditorPanelState } from "./types";
@@ -98,17 +97,13 @@ const Editor = () => {
     }));
   }, []);
 
-  const handleOnSave = useCallback(
-    (world: SavedMap) => {
-      setWorldMap((oldWorld) => ({
-        id: oldWorld.id,
-        name: world.name,
-        world: oldWorld.world,
-      }));
-      saveToLocalStorage<CellModel[]>(world.id, worldMap.world);
-    },
-    [worldMap]
-  );
+  const handleOnSave = useCallback((world: SavedMap) => {
+    setWorldMap((oldWorld) => ({
+      id: world.id,
+      name: world.name,
+      world: oldWorld.world,
+    }));
+  }, []);
 
   const handleOnLoad = useCallback((world: WorldModel) => {
     setWorldMap(world);
@@ -116,8 +111,11 @@ const Editor = () => {
 
   const navigate = useNavigate();
   const handleGoToPlayBoard = useCallback(() => {
-    navigate(RouterKeys.PlayBoard);
-  }, [navigate]);
+    console.log(worldMap.id);
+    if (worldMap.id) {
+      navigate(generatePath(RouterKeys.PlayBoard, { id: worldMap.id }));
+    }
+  }, [navigate, worldMap?.id]);
 
   return (
     <MainLayout
