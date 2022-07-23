@@ -1,17 +1,18 @@
 import { useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import WorldMap from "components/WorldMap";
 import CellModel, { CellBaseModel } from "types/CellModel";
 import { COLS, ROWS } from "constants/cells";
 import generateWorld from "utils/generateWorld";
 import useStateUpdate from "hooks/useUpdateState";
+import { loadFromLocalStorage, saveToLocalStorage } from "utils/localStorage";
+import EditorPanel from "./EditorPanel";
+import SaveLoadMenu from "./SaveLoadMenu";
 import { EditorModeEnum, EditorPanelState } from "./types";
 import { DEFAULT_EDITOR_PANEL_STATE } from "./constants";
 import { EditorWrapperStyled, HeaderStyled, MainStyled } from "./styles";
-import EditorPanel from "./EditorPanel";
-import SaveLoadMenu from "./SaveLoadMenu";
-import { loadFromLocalStorage, saveToLocalStorage } from "utils/localStorage";
-import { useNavigate } from "react-router-dom";
 import { RouterKeys } from "constants/routeKeys";
+import changeCellInWorld from "./utils/changeCellInWorld";
 
 const realWorld = generateWorld({ rows: ROWS, cols: COLS });
 
@@ -25,13 +26,8 @@ const Editor = () => {
 
   const changeWorldCell = useCallback(
     (cell: CellBaseModel) => {
-      setWorldMap((oldWorld) =>
-        oldWorld.map((oldCell) => {
-          if (selectedCells.includes(oldCell.id)) {
-            return { ...oldCell, cell: { ...cell } };
-          }
-          return oldCell;
-        })
+      changeCellInWorld(cell, setWorldMap, (oldCell) =>
+        selectedCells.includes(oldCell.id)
       );
     },
     [selectedCells]
@@ -62,26 +58,20 @@ const Editor = () => {
         editorPanelState.mode === EditorModeEnum.Brush &&
         editorPanelState.cell
       ) {
-        setWorldMap((oldWorld) => {
-          return oldWorld.map((cell) => {
-            if (cellId === cell.id) {
-              return { ...cell, ...editorPanelState.cell };
-            }
-            return cell;
-          });
-        });
+        changeCellInWorld(
+          editorPanelState.cell,
+          setWorldMap,
+          (oldCell) => cellId === oldCell.id
+        );
       } else if (
         editorPanelState.mode === EditorModeEnum.Tile &&
         editorPanelState.cell
       ) {
-        setWorldMap((oldWorld) => {
-          return oldWorld.map((cell) => {
-            if (tileId === cell.tileId) {
-              return { ...cell, ...editorPanelState.cell };
-            }
-            return cell;
-          });
-        });
+        changeCellInWorld(
+          editorPanelState.cell,
+          setWorldMap,
+          (oldCell) => tileId === oldCell.tileId
+        );
       }
     },
     [editorPanelState]
