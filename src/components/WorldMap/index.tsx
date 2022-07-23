@@ -1,9 +1,8 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import MapTile from "components/MapTile";
-import CellModel from "types/CellModel";
+import WorldModel from "types/WorldModel";
+import unflatWorld from "./unflatWorld";
 import { WorldMapRowStyled, WorldMapStyled, WorldMapWrapper } from "./styles";
-import { TileModel } from "types/TileModel";
-import { useMemo } from "react";
 
 interface WorldMapProps {
   onClick?: (
@@ -11,33 +10,9 @@ interface WorldMapProps {
     cellId: number,
     e: React.MouseEvent<HTMLElement>
   ) => void;
-  worldMap: CellModel[];
-  selectedCells: number[];
+  worldMap: WorldModel;
+  selectedCells?: number[];
 }
-
-const unflatWorld = (cells: CellModel[]): TileModel[][] => {
-  const tiles: TileModel[][] = [];
-  cells.forEach((cell) => {
-    if (!tiles[cell.tileRow]) {
-      tiles[cell.tileRow] = [];
-    }
-
-    tiles[cell.tileRow][cell.tileCol] = {
-      tileId: cell.tileId,
-      row: cell.tileRow,
-      col: cell.tileCol,
-      cells: [] as CellModel[][],
-    };
-  });
-  cells.forEach((cell) => {
-    const tileCells = tiles[cell.tileRow][cell.tileCol].cells;
-    if (!tileCells[cell.row]) {
-      tileCells[cell.row] = [];
-    }
-    tileCells[cell.row][cell.col] = cell;
-  });
-  return tiles;
-};
 
 const WorldMap = ({ onClick, worldMap, selectedCells }: WorldMapProps) => {
   const handleClickOnCell = useCallback(
@@ -50,24 +25,28 @@ const WorldMap = ({ onClick, worldMap, selectedCells }: WorldMapProps) => {
   );
 
   const world = useMemo(() => {
-    return unflatWorld(worldMap);
-  }, [worldMap]);
+    return unflatWorld(worldMap.world);
+  }, [worldMap?.world]);
 
   return (
     <WorldMapWrapper>
       <WorldMapStyled>
-        {world.map((tileRows, rowIndex) => (
-          <WorldMapRowStyled key={rowIndex}>
-            {tileRows.map((tile) => (
-              <MapTile
-                tile={tile}
-                key={`${tile.col}:${tile.row}`}
-                onClick={handleClickOnCell}
-                selectedCells={selectedCells}
-              />
-            ))}
-          </WorldMapRowStyled>
-        ))}
+        {world?.length ? (
+          world.map((tileRows, rowIndex) => (
+            <WorldMapRowStyled key={rowIndex}>
+              {tileRows.map((tile) => (
+                <MapTile
+                  tile={tile}
+                  key={`${tile.col}:${tile.row}`}
+                  onClick={handleClickOnCell}
+                  selectedCells={selectedCells}
+                />
+              ))}
+            </WorldMapRowStyled>
+          ))
+        ) : (
+          <div>Please, load world</div>
+        )}
       </WorldMapStyled>
     </WorldMapWrapper>
   );

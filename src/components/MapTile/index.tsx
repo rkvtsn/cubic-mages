@@ -10,7 +10,7 @@ interface MapTileProps {
     cellId: number,
     e: React.MouseEvent<HTMLElement>
   ) => void;
-  selectedCells: number[];
+  selectedCells?: number[];
   tile: TileModel;
 }
 
@@ -25,7 +25,7 @@ const MapTile = ({ tile, onClick, selectedCells }: MapTileProps) => {
 
   const getIsSelected = useCallback(
     (cellId: number) => {
-      return selectedCells.includes(cellId);
+      return selectedCells?.includes(cellId);
     },
     [selectedCells]
   );

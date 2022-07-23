@@ -2,31 +2,27 @@ import Modal from "components/Modal";
 import useLocalStorageState from "hooks/useLocalStorageState";
 import usePanelClickButton from "hooks/usePanelClickButton";
 import { useCallback, useState } from "react";
-import generateId from "utils/generateId";
-import { ButtonMenuStyled } from "./styles";
+import WorldModel from "types/WorldModel";
+import { formatDateTime } from "utils/dateTime";
+import { loadFromLocalStorage, saveToLocalStorage } from "utils/localStorage";
+import newSavedMap from "./newSavedMap";
+import { SavedMap } from "./types";
 
 const DEFAULT_ARRAY: SavedMap[] = [];
 
-interface SavedMap {
-  id: string;
-  name: string;
-  saved: Date;
-}
-
-const newSavedMap = (): SavedMap => {
-  return {
-    id: generateId().toString(),
-    name: `map_${generateId()}`,
-    saved: new Date(),
-  };
-};
-
 interface SaveLoadMenuProps {
-  onSave: (id: string) => void;
-  onLoad: (id: string) => void;
+  onSave: (savedMap: SavedMap) => void;
+  onLoad: (world: WorldModel) => void;
+  world: WorldModel;
+  readonly?: boolean;
 }
 
-const SaveLoadMenu = ({ onSave, onLoad }: SaveLoadMenuProps) => {
+const SaveLoadMenu = ({
+  onSave,
+  onLoad,
+  world,
+  readonly = false,
+}: SaveLoadMenuProps) => {
   const [isMenuVisible, setMenuVisible] = useState<boolean>(false);
 
   const handleClickOnToolbar = useCallback(() => {
@@ -42,17 +38,18 @@ const SaveLoadMenu = ({ onSave, onLoad }: SaveLoadMenuProps) => {
   >("savedMaps", DEFAULT_ARRAY);
 
   const saveMap = useCallback(() => {
-    const savedMap = newSavedMap();
+    const savedMap = newSavedMap(world.name);
     setSavedMaps((oldSaves) => {
       return [...oldSaves, savedMap];
     });
-    onSave(savedMap.id);
-  }, [onSave, setSavedMaps]);
+    saveToLocalStorage(world.id, world);
+    onSave(savedMap);
+  }, [onSave, setSavedMaps, world]);
 
   const handleClickOnSavedMaps = useCallback(
     (button: HTMLButtonElement) => {
       if (button.value === "load") {
-        onLoad(button.name);
+        onLoad(loadFromLocalStorage<WorldModel>(world.id, world));
       }
       if (button.value === "delete") {
         setSavedMaps((oldSaves) => {
@@ -61,29 +58,34 @@ const SaveLoadMenu = ({ onSave, onLoad }: SaveLoadMenuProps) => {
         localStorage.removeItem(button.name);
       }
     },
-    [onLoad, setSavedMaps]
+    [onLoad, setSavedMaps, world]
   );
 
   const handleClickSavedMaps = usePanelClickButton(handleClickOnSavedMaps);
 
   return (
     <>
-      <ButtonMenuStyled onClick={handleClickOnToolbar}>
-        Storage
-      </ButtonMenuStyled>
+      <button onClick={handleClickOnToolbar}>Storage</button>
       <Modal isVisible={isMenuVisible} onClose={handleCloseModal}>
-        <button onClick={saveMap} name="add">
-          Add
-        </button>
+        {!readonly ? (
+          <button onClick={saveMap} name="add">
+            Add
+          </button>
+        ) : null}
         <div onClick={handleClickSavedMaps}>
           {savedMaps.map((savedMap) => (
             <div key={savedMap.id}>
               <button value="load" name={savedMap.id.toString()}>
-                {savedMap.name}
+                <>
+                  {savedMap.name}
+                  {formatDateTime(savedMap.saved)}
+                </>
               </button>
-              <button value="delete" name={savedMap.id.toString()}>
-                x
-              </button>
+              {!readonly ? (
+                <button value="delete" name={savedMap.id.toString()}>
+                  x
+                </button>
+              ) : null}
             </div>
           ))}
         </div>

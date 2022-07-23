@@ -16,7 +16,7 @@ interface EditorPanelProps {
   onClearSelect: () => void;
   editorPanelState: EditorPanelState;
   onChange: (value: Partial<EditorPanelState>) => void;
-  editorTopPanel: ReactNode;
+  editorTopPanel?: ReactNode;
 }
 
 const EditorPanel = ({

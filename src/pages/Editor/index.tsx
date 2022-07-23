@@ -5,19 +5,20 @@ import CellModel, { CellBaseModel } from "types/CellModel";
 import { COLS, ROWS } from "constants/cells";
 import generateWorld from "utils/generateWorld";
 import useStateUpdate from "hooks/useUpdateState";
-import { loadFromLocalStorage, saveToLocalStorage } from "utils/localStorage";
+import { saveToLocalStorage } from "utils/localStorage";
 import EditorPanel from "./EditorPanel";
 import SaveLoadMenu from "./SaveLoadMenu";
 import { EditorModeEnum, EditorPanelState } from "./types";
-import { DEFAULT_EDITOR_PANEL_STATE } from "./constants";
-import { EditorWrapperStyled, HeaderStyled, MainStyled } from "./styles";
+import { DEFAULT_EDITOR_PANEL_STATE, REAL_WORLD } from "./constants";
+import { HeaderRightSideStyled, WorldNameStyled } from "./styles";
 import { RouterKeys } from "constants/routeKeys";
 import changeCellInWorld from "./utils/changeCellInWorld";
-
-const realWorld = generateWorld({ rows: ROWS, cols: COLS });
+import { SavedMap } from "./SaveLoadMenu/types";
+import WorldModel from "types/WorldModel";
+import MainLayout from "components/MainLayout";
 
 const Editor = () => {
-  const [worldMap, setWorldMap] = useState<CellModel[]>(realWorld);
+  const [worldMap, setWorldMap] = useState<WorldModel>(REAL_WORLD);
 
   const [selectedCells, setSelectedCells] = useState<number[]>([]);
 
@@ -90,18 +91,27 @@ const Editor = () => {
   );
 
   const handleResetMap = useCallback(() => {
-    setWorldMap(generateWorld({ rows: ROWS, cols: COLS }));
+    setWorldMap((oldWorld) => ({
+      id: oldWorld.id,
+      name: oldWorld.name,
+      world: generateWorld({ rows: ROWS, cols: COLS }),
+    }));
   }, []);
 
   const handleOnSave = useCallback(
-    (id: string) => {
-      saveToLocalStorage<CellModel[]>(id, worldMap);
+    (world: SavedMap) => {
+      setWorldMap((oldWorld) => ({
+        id: oldWorld.id,
+        name: world.name,
+        world: oldWorld.world,
+      }));
+      saveToLocalStorage<CellModel[]>(world.id, worldMap.world);
     },
     [worldMap]
   );
 
-  const handleOnLoad = useCallback((id: string) => {
-    setWorldMap(loadFromLocalStorage<CellModel[]>(id, realWorld));
+  const handleOnLoad = useCallback((world: WorldModel) => {
+    setWorldMap(world);
   }, []);
 
   const navigate = useNavigate();
@@ -110,28 +120,41 @@ const Editor = () => {
   }, [navigate]);
 
   return (
-    <EditorWrapperStyled>
-      <HeaderStyled>
-        <button onClick={handleResetMap}>Reset map</button>
-        <button onClick={handleGoToPlayBoard}>Go to PlayBoard</button>
-      </HeaderStyled>
-      <MainStyled>
-        <WorldMap
-          worldMap={worldMap}
-          selectedCells={selectedCells}
-          onClick={handleCellClick}
-        />
+    <MainLayout
+      rightbar={
         <EditorPanel
-          editorTopPanel={
-            <SaveLoadMenu onLoad={handleOnLoad} onSave={handleOnSave} />
-          }
           editorPanelState={editorPanelState}
           onChange={updateEditorPanelState}
           onClearSelect={handleOnClearSelect}
           onClick={handleOnClickPanel}
         />
-      </MainStyled>
-    </EditorWrapperStyled>
+      }
+      header={
+        <>
+          <p>
+            Current world: <WorldNameStyled>{worldMap.name}</WorldNameStyled>
+          </p>
+
+          <HeaderRightSideStyled>
+            <>
+              <button onClick={handleResetMap}>Clear map</button>
+              <button onClick={handleGoToPlayBoard}>Go to PlayBoard</button>
+              <SaveLoadMenu
+                onLoad={handleOnLoad}
+                onSave={handleOnSave}
+                world={worldMap}
+              />
+            </>
+          </HeaderRightSideStyled>
+        </>
+      }
+    >
+      <WorldMap
+        worldMap={worldMap}
+        selectedCells={selectedCells}
+        onClick={handleCellClick}
+      />
+    </MainLayout>
   );
 };
 
