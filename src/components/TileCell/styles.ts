@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { UseCellStyle } from "./useCellStyle";
 
 const TILE_CELL_SIZE = 50;
+const CELL_OVERLAY_SIZE = 20;
 
 export const TileCellStyled = styled.div<UseCellStyle>`
   display: flex;
@@ -21,4 +22,11 @@ export const TileCellStyled = styled.div<UseCellStyle>`
     opacity: 0.7;
     border-color: #888;
   }
+`;
+
+export const CellOverlayStyled = styled.div`
+  position: absolute;
+  display: block;
+  width: ${CELL_OVERLAY_SIZE}px;
+  height: ${CELL_OVERLAY_SIZE}px;
 `;

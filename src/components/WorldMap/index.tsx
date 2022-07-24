@@ -1,18 +1,8 @@
 import { memo, useCallback, useMemo } from "react";
 import MapTile from "components/MapTile";
-import WorldModel from "types/WorldModel";
 import unflatWorld from "./unflatWorld";
 import { WorldMapRowStyled, WorldMapStyled, WorldMapWrapper } from "./styles";
-
-interface WorldMapProps {
-  onClick?: (
-    tileId: number,
-    cellId: number,
-    e: React.MouseEvent<HTMLElement>
-  ) => void;
-  worldMap: WorldModel;
-  selectedCells?: number[];
-}
+import { WorldMapProps } from "./types";
 
 const WorldMap = ({ onClick, worldMap, selectedCells }: WorldMapProps) => {
   const handleClickOnCell = useCallback(

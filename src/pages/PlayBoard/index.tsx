@@ -12,6 +12,7 @@ import { ColorPlayer } from "constants/colors";
 import { CharacterType } from "types/CharacterModel";
 import CHARACTERS from "constants/characters";
 import PlayerTable from "./PlayerTable";
+import { DEFAULT_BAG } from "constants/cubics";
 
 // PLAYERS loading from localstorage/server
 const PLAYERS: PlayerModel[] = [
@@ -20,6 +21,8 @@ const PLAYERS: PlayerModel[] = [
     color: ColorPlayer.Blue,
     type: CharacterType.Druid,
     name: "Player 1",
+    bag: [...DEFAULT_BAG],
+    actions: [],
   },
 ];
 

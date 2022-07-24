@@ -1,9 +1,9 @@
 export enum CubicType {
-  Red, // fails
-  Green, // nature
-  Blue, // shadow
-  Yellow, // light
-  Gray, // common
+  Red = "Red", // fails
+  Green = "Green", // nature
+  Blue = "Blue", // shadow
+  Yellow = "Yellow", // light
+  Gray = "Gray", // common
 }
 
 export interface CubicModel {

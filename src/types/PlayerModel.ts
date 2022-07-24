@@ -1,23 +1,13 @@
 import { ColorPlayer } from "constants/colors";
+import { ActionModel } from "./ActionModel";
 import { CharacterType } from "./CharacterModel";
+import { CubicModel } from "./CubicModel";
 
 export interface PlayerModel {
   id: string;
   name: string;
   color: ColorPlayer;
   type: CharacterType;
-}
-
-export class PlayerImpl implements PlayerModel {
-  id: string;
-  name: string;
-  color: ColorPlayer;
-  type: CharacterType;
-
-  constructor({ id, name, color, type }: PlayerModel) {
-    this.id = id;
-    this.color = color;
-    this.type = type;
-    this.name = name;
-  }
+  bag: CubicModel[];
+  actions: ActionModel[];
 }
