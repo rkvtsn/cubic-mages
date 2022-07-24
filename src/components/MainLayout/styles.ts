@@ -27,4 +27,6 @@ export const MainStyled = styled.div`
 
 export const RightbarStyled = styled.div`
   height: 100%;
+  margin-left: auto;
+  margin-right: 0;
 `;
