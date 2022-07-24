@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import WorldModel from "types/WorldModel";
@@ -11,8 +11,9 @@ import { CURRENT_WORLD } from "constants/general";
 import { ColorPlayer } from "constants/colors";
 import { CharacterType } from "types/CharacterModel";
 import CHARACTERS from "constants/characters";
+import PlayerTable from "./PlayerTable";
 
-// PLAYERS loading from localstorage
+// PLAYERS loading from localstorage/server
 const PLAYERS: PlayerModel[] = [
   {
     id: "1",
@@ -70,7 +71,11 @@ const PlayBoard = () => {
   const [worldMap, setWorldMap] = useState<WorldModel>(WORLD);
   const [players, setPlayers] = useState<PlayerModel[]>(PLAYERS);
 
-  const [currentPlayer, setCurrentPlayer] = useState<PlayerModel>(PLAYERS[0]);
+  const [currentPlayerIndex, setCurrentPlayerIndex] = useState<number>(0);
+
+  const currentPlayer = useMemo(() => {
+    return players[currentPlayerIndex];
+  }, [currentPlayerIndex, players]);
 
   useEffect(() => {
     initPlayBoard(worldId, setWorldMap);
@@ -109,6 +114,7 @@ const PlayBoard = () => {
           <button onClick={handleNewDay}>New day</button>
         </>
       }
+      rightbar={<PlayerTable player={currentPlayer} />}
     >
       <WorldMap worldMap={worldMap} onClick={handleCellClick} />
     </MainLayout>

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { ColorPalette } from "constants/colors";
 
 export const ClearButtonStyled = styled.button`
   margin: 10px 0px;
@@ -14,7 +13,6 @@ export const EditorPanelWrapperStyled = styled.div`
   align-items: start;
   padding: 10px;
   text-align: center;
-  background: ${ColorPalette.PanelBackground};
 `;
 
 export const PStyled = styled.p`

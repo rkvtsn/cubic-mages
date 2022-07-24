@@ -29,4 +29,5 @@ export const RightbarStyled = styled.div`
   height: 100%;
   margin-left: auto;
   margin-right: 0;
+  background: ${ColorPalette.PanelBackground};
 `;
