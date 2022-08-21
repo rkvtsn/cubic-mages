@@ -1,7 +1,6 @@
 import { CellNameType } from "./CellModel";
 
 export interface CharacterModel {
-  name: CharacterType;
   startLocation: CellNameType;
 }
 

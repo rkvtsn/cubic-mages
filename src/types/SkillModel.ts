@@ -1,6 +1,6 @@
 import { CubicModel } from "./CubicModel";
 
-export interface ActionModel {
+export interface SkillModel {
   id: string;
   name: string;
   description: string;

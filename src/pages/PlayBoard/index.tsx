@@ -22,7 +22,7 @@ const PLAYERS: PlayerModel[] = [
     type: CharacterType.Druid,
     name: "Player 1",
     bag: [...DEFAULT_BAG],
-    actions: [],
+    skills: [],
   },
 ];
 

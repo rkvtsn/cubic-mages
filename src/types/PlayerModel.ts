@@ -1,5 +1,5 @@
 import { ColorPlayer } from "constants/colors";
-import { ActionModel } from "./ActionModel";
+import { SkillModel } from "./SkillModel";
 import { CharacterType } from "./CharacterModel";
 import { CubicModel } from "./CubicModel";
 
@@ -9,5 +9,5 @@ export interface PlayerModel {
   color: ColorPlayer;
   type: CharacterType;
   bag: CubicModel[];
-  actions: ActionModel[];
+  skills: SkillModel[];
 }

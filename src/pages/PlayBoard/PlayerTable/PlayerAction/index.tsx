@@ -1,7 +1,7 @@
-import { ActionModel } from "types/ActionModel";
+import { SkillModel } from "types/SkillModel";
 
 interface PlayerActionProps {
-  action: ActionModel;
+  action: SkillModel;
 }
 
 const PlayerAction = ({ action }: PlayerActionProps) => {

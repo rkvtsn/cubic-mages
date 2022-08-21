@@ -19,9 +19,9 @@ const PlayerTable = ({ player }: PlayerTableProps) => {
       </div>
       <div>Actions:</div>
       <div>
-        {player.actions.map((action) => (
+        {/* {player.actions.map((action) => (
           <PlayerAction key={action.id} action={action} />
-        ))}
+        ))} */}
       </div>
     </PlayerTableWrapperStyled>
   );

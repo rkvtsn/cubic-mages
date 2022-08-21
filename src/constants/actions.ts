@@ -1,3 +1,3 @@
-import { ActionModel } from "types/ActionModel";
+import { SkillModel } from "types/SkillModel";
 
-export const ACTION_CARDS: ActionModel[] = [];
+export const ACTION_CARDS: SkillModel[] = [];
