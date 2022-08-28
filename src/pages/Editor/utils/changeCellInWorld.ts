@@ -1,3 +1,4 @@
+import { CELLS_MAP } from "constants/cells";
 import CellModel from "types/CellModel";
 import WorldModel from "types/WorldModel";
 
@@ -11,7 +12,7 @@ export const changeCellInWorld = (
     name: oldWorld.name,
     cells: oldWorld.cells.map((oldCell) => {
       if (conditionFn(oldCell)) {
-        return { ...oldCell, cellName };
+        return { ...oldCell, base: CELLS_MAP[cellName] } as CellModel;
       }
       return oldCell;
     }),
