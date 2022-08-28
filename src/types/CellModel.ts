@@ -1,6 +1,4 @@
 import { CELL_NAMES, CELL_TYPES } from "constants/cells";
-import EffectModel from "./EffectModel";
-import { PlayerModel } from "./PlayerModel";
 
 export type CellType = typeof CELL_TYPES[number];
 export type CellNameType = typeof CELL_NAMES[number];
@@ -12,16 +10,18 @@ export interface CellBaseModel {
   count?: number;
 }
 
-export interface CellModel {
-  cellName: string;
-  id: number;
+export interface CellPosition {
   row: number;
   col: number;
-  tileId: number;
-  tileRow: number;
-  tileCol: number;
-  effect?: EffectModel | null;
-  player?: PlayerModel | null;
+}
+
+export interface TileModel extends CellPosition {
+  id: number;
+}
+
+export interface CellModel extends TileModel {
+  tile: TileModel;
+  base: CellBaseModel;
 }
 
 export default CellModel;

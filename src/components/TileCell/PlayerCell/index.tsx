@@ -1,4 +1,3 @@
-import React from "react";
 import { PlayerModel } from "types/PlayerModel";
 import { PlayerCellStyled } from "./styles";
 

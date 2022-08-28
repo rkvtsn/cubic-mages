@@ -1,10 +1,10 @@
 import { memo, useCallback, useMemo } from "react";
 import MapTile from "components/MapTile";
 import unflatWorld from "./unflatWorld";
-import { WorldMapRowStyled, WorldMapStyled, WorldMapWrapper } from "./styles";
 import { WorldMapProps } from "./types";
+import { WorldMapRowStyled, WorldMapStyled, WorldMapWrapper } from "./styles";
 
-const WorldMap = ({ onClick, worldMap, selectedCells }: WorldMapProps) => {
+const WorldMap = ({ onClick, worldMap, selectedCells, players, effects }: WorldMapProps) => {
   const handleClickOnCell = useCallback(
     (tileId: number, cellId: number, e: React.MouseEvent<HTMLElement>) => {
       if (onClick) {
@@ -27,6 +27,8 @@ const WorldMap = ({ onClick, worldMap, selectedCells }: WorldMapProps) => {
               {tileRows.map((tile) => (
                 <MapTile
                   tile={tile}
+                  effects={effects}
+                  players={players}
                   key={`${tile.col}:${tile.row}`}
                   onClick={handleClickOnCell}
                   selectedCells={selectedCells}

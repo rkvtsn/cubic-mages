@@ -69,7 +69,7 @@ const Editor = () => {
         changeCellInWorld(
           editorPanelState.brush,
           setWorldMap,
-          (oldCell) => tileId === oldCell.tileId
+          (oldCell) => tileId === oldCell.tile.id
         );
       }
     },

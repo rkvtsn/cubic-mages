@@ -1,3 +1,4 @@
+import EffectModel from "types/EffectModel";
 import { PlayerModel } from "types/PlayerModel";
 import WorldModel from "types/WorldModel";
 
@@ -9,5 +10,6 @@ export interface WorldMapProps {
   ) => void;
   worldMap: WorldModel;
   selectedCells?: number[];
-  currentPlayer?: PlayerModel;
+  players?: PlayerModel[];
+  effects?: EffectModel[];
 }

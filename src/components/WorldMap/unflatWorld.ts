@@ -4,19 +4,19 @@ import { TileModel } from "types/TileModel";
 export const unflatWorld = (cells: CellModel[]): TileModel[][] => {
   const tiles: TileModel[][] = [];
   cells.forEach((cell) => {
-    if (!tiles[cell.tileRow]) {
-      tiles[cell.tileRow] = [];
+    if (!tiles[cell.tile.row]) {
+      tiles[cell.tile.row] = [];
     }
 
-    tiles[cell.tileRow][cell.tileCol] = {
-      tileId: cell.tileId,
-      row: cell.tileRow,
-      col: cell.tileCol,
+    tiles[cell.tile.row][cell.tile.col] = {
+      tileId: cell.tile.id,
+      row: cell.tile.row,
+      col: cell.tile.col,
       cells: [] as CellModel[][],
     };
   });
   cells.forEach((cell) => {
-    const tileCells = tiles[cell.tileRow][cell.tileCol].cells;
+    const tileCells = tiles[cell.tile.row][cell.tile.col].cells;
     if (!tileCells[cell.row]) {
       tileCells[cell.row] = [];
     }

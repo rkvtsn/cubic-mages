@@ -1,26 +1,27 @@
 import { memo, useCallback } from "react";
+import { CellBaseModel } from "types/CellModel";
 import { EditorCellStyled, TileCellStyled } from "./styles";
 
 interface EditorCellProps {
-  cellName: string;
+  cellBase: CellBaseModel;
   onClick: (cellName: string) => void;
   isSelected: boolean;
 }
 
-const EditorCell = ({ cellName, onClick, isSelected }: EditorCellProps) => {
+const EditorCell = ({ cellBase, onClick, isSelected }: EditorCellProps) => {
   const handleOnClick = useCallback(() => {
-    onClick(cellName);
-  }, [cellName, onClick]);
+    onClick(cellBase.name);
+  }, [cellBase, onClick]);
 
   return (
     <EditorCellStyled>
       <TileCellStyled
-        cellName={cellName}
+        cellBase={cellBase}
         onClick={handleOnClick}
         isSelected={isSelected}
         isStatic
       />
-      <div>{cellName}</div>
+      <div>{cellBase.name}</div>
     </EditorCellStyled>
   );
 };

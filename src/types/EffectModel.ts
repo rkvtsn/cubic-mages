@@ -1,3 +1,5 @@
+import { CellPosition } from "./CellModel";
+
 export enum EffectType {
   Rumor = "rumor",
   Goal = "goal",
@@ -8,6 +10,7 @@ export interface EffectModel {
   name: string;
   description: string;
   type: EffectType;
+  position: CellPosition;
 }
 
 export interface EffectData {

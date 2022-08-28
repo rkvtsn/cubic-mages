@@ -22,6 +22,10 @@ export const ROUTES: RouterViewItem[] = [
     path: RouterKeys.PlayBoard,
     element: <PlayBoard />,
   },
+  {
+    path: RouterKeys.PlayBoardEmpty,
+    element: <PlayBoard />,
+  },
 ];
 
 export default ROUTES;

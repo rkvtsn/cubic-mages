@@ -22,7 +22,7 @@ const PaintPanel = ({ onSelect, editorPanelState }: PaintPanelProps) => {
                 key={cell.name}
                 isSelected={editorPanelState.brush === cell.name}
                 onClick={onSelect}
-                cellName={cell.name}
+                cellBase={cell}
               />
             ))}
           </CellEditOptionsRowStyled>

@@ -10,9 +10,9 @@ import { PlayerModel } from "types/PlayerModel";
 import { CURRENT_WORLD } from "constants/general";
 import { ColorPlayer } from "constants/colors";
 import { CharacterType } from "types/CharacterModel";
-import CHARACTERS from "constants/characters";
 import PlayerTable from "./PlayerTable";
 import { DEFAULT_BAG } from "constants/cubics";
+import EffectModel from "types/EffectModel";
 
 // PLAYERS loading from localstorage/server
 const PLAYERS: PlayerModel[] = [
@@ -23,56 +23,62 @@ const PLAYERS: PlayerModel[] = [
     name: "Player 1",
     bag: [...DEFAULT_BAG],
     skills: [],
+    isActive: true,
+    position: {
+      row: 0,
+      col: 0,
+    }
   },
 ];
 
-// @todo add service to change World
+// // @todo add service to change World
 
-const initGame =
-  (players: PlayerModel[]) =>
-  (
-    worldId: string | undefined,
-    setWorldMap: (value: React.SetStateAction<WorldModel>) => void
-  ) => {
-    if (worldId) {
-      const world = loadFromLocalStorage(worldId, REAL_WORLD);
-      for (const player of players) {
-        for (const cell of world.world) {
-          if (
-            !cell.player &&
-            CHARACTERS[player.type].startLocation === cell.cellName
-          ) {
-            // @todo... ref access ?!
-            cell.player = player;
-            break;
-          }
-        }
-      }
-      setWorldMap(world);
-    }
-  };
+// const initGame =
+//   (players: PlayerModel[]) =>
+//   (
+//     worldId: string | undefined,
+//     setWorldMap: (value: React.SetStateAction<WorldModel>) => void
+//   ) => {
+//     if (worldId) {
+//       const world = loadFromLocalStorage(worldId, REAL_WORLD);
+//       for (const player of players) {
+//         for (const cell of world.world) {
+//           if (
+//             !cell.player &&
+//             CHARACTERS[player.type].startLocation === cell.cellName
+//           ) {
+//             // @todo... ref access ?!
+//             cell.player = player;
+//             break;
+//           }
+//         }
+//       }
+//       setWorldMap(world);
+//     }
+//   };
 
-const addEncounters = (
-  setWorldMap: (value: React.SetStateAction<WorldModel>) => void
-) => {
-  setWorldMap((oldWorld) => {
-    const newWorld = [...oldWorld.world];
-    return {
-      id: oldWorld.id,
-      name: oldWorld.name,
-      world: newWorld,
-    };
-  });
-};
+// const addEncounters = (
+//   setWorldMap: (value: React.SetStateAction<WorldModel>) => void
+// ) => {
+//   setWorldMap((oldWorld) => {
+//     const newWorld = [...oldWorld.world];
+//     return {
+//       id: oldWorld.id,
+//       name: oldWorld.name,
+//       world: newWorld,
+//     };
+//   });
+// };
 
 const WORLD = loadFromLocalStorage<WorldModel>(CURRENT_WORLD, REAL_WORLD);
 
-const initPlayBoard = initGame(PLAYERS);
+// const initPlayBoard = initGame(PLAYERS);
 
 const PlayBoard = () => {
   const { id: worldId } = useParams<{ id: string }>();
   const [worldMap, setWorldMap] = useState<WorldModel>(WORLD);
   const [players, setPlayers] = useState<PlayerModel[]>(PLAYERS);
+  const [effects, setEffects] = useState<EffectModel[]>([]);
 
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState<number>(0);
 
@@ -81,7 +87,7 @@ const PlayBoard = () => {
   }, [currentPlayerIndex, players]);
 
   useEffect(() => {
-    initPlayBoard(worldId, setWorldMap);
+    // initPlayBoard(worldId, setWorldMap);
   }, [worldId]);
 
   const handleCellClick = useCallback(
@@ -107,7 +113,7 @@ const PlayBoard = () => {
   );
 
   const handleNewDay = useCallback(() => {
-    addEncounters(setWorldMap);
+    // addEncounters(setWorldMap);
   }, []);
 
   return (
@@ -119,7 +125,7 @@ const PlayBoard = () => {
       }
       rightbar={<PlayerTable player={currentPlayer} />}
     >
-      <WorldMap worldMap={worldMap} onClick={handleCellClick} />
+      <WorldMap effects={effects} players={players} worldMap={worldMap} onClick={handleCellClick} />
     </MainLayout>
   );
 };
