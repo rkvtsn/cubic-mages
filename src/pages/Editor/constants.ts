@@ -3,7 +3,7 @@ import { COLS, ROWS } from "constants/cells";
 import { DICT_WORLD } from "constants/dicts";
 import WorldModel from "types/WorldModel";
 import { generateName } from "utils/generateName";
-import generateWorld from "utils/generateWorld";
+import generateWorldCells from "utils/generateWorldCells";
 import { EditorModeEnum, EditorPanelState } from "./types";
 
 export const CONTROL_BUTTONS: ControlButtonProps[] = [
@@ -29,5 +29,5 @@ export const DEFAULT_EDITOR_PANEL_STATE: EditorPanelState = {
 export const REAL_WORLD: WorldModel = {
   id: null,
   name: generateName(DICT_WORLD),
-  world: generateWorld({ rows: ROWS, cols: COLS }),
+  cells: generateWorldCells({ rows: ROWS, cols: COLS }),
 };

@@ -31,11 +31,11 @@ const TileCell = ({
     <TileCellStyled className={className} {...styles} onClick={handleOnClick}>
       {/* {info ? <InfoCell info={info} /> : null} */}
       {/* {effect ? <EffectCell effect={effect} /> : null} */}
-      {players ? players.map(player => (<PlayerCell key={player.id} player={player} />)) : null}
+      {!!players &&
+        players.map((player) => <PlayerCell key={player.id} player={player} />)}
     </TileCellStyled>
   );
 };
-
 
 export interface TileCellProps {
   onClick: (cellName: string, e: React.MouseEvent<HTMLElement>) => void;

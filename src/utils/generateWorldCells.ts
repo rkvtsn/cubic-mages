@@ -27,7 +27,7 @@ const genTileCell = (
   return cells;
 };
 
-export const generateWorld = ({
+export const generateWorldCells = ({
   rows = ROWS,
   cols = COLS,
   tileRows = TILE_ROWS,
@@ -42,4 +42,4 @@ export const generateWorld = ({
   return cells;
 };
 
-export default generateWorld;
+export default generateWorldCells;

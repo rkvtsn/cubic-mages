@@ -1,5 +1,6 @@
 import { CELL_NAMES, CELL_TYPES } from "constants/cells";
 
+// todo: mb need to change names on proper
 export type CellType = typeof CELL_TYPES[number];
 export type CellNameType = typeof CELL_NAMES[number];
 

@@ -4,7 +4,13 @@ import unflatWorld from "./unflatWorld";
 import { WorldMapProps } from "./types";
 import { WorldMapRowStyled, WorldMapStyled, WorldMapWrapper } from "./styles";
 
-const WorldMap = ({ onClick, worldMap, selectedCells, players, effects }: WorldMapProps) => {
+const WorldMap = ({
+  onClick,
+  worldMap,
+  selectedCells,
+  players,
+  effects,
+}: WorldMapProps) => {
   const handleClickOnCell = useCallback(
     (tileId: number, cellId: number, e: React.MouseEvent<HTMLElement>) => {
       if (onClick) {
@@ -15,8 +21,8 @@ const WorldMap = ({ onClick, worldMap, selectedCells, players, effects }: WorldM
   );
 
   const world = useMemo(() => {
-    return unflatWorld(worldMap.world);
-  }, [worldMap?.world]);
+    return unflatWorld(worldMap.cells);
+  }, [worldMap?.cells]);
 
   return (
     <WorldMapWrapper>

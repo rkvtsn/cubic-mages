@@ -1,21 +1,13 @@
-import CharacterModel, { CharacterType } from "types/CharacterModel";
+import CharacterDruid from "services/CharacterDruid";
+import { ICharacterService } from "services/CharacterService";
+import { CharacterType } from "types/CharacterModel";
+import { PlayerModel } from "types/PlayerModel";
 
-export const CHARACTERS: Record<CharacterType, CharacterModel> = {
-  [CharacterType.Druid]: {
-    startLocation: "forest",
-  },
-  [CharacterType.Paladin]: {
-    startLocation: "Chirch",
-  },
-  [CharacterType.Sorcerer]: {
-    startLocation: "Roderik",
-  },
-  [CharacterType.Witch]: {
-    startLocation: "Jail",
-  },
-  [CharacterType.Witcher]: {
-    startLocation: "Stronghold",
-  },
+export const CharactersContainer: Record<
+  string,
+  (player: PlayerModel) => ICharacterService
+> = {
+  [CharacterType.Druid]: (player) => new CharacterDruid(player),
 };
 
-export default CHARACTERS;
+export default CharactersContainer;

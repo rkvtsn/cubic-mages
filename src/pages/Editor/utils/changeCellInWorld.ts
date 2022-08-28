@@ -9,7 +9,7 @@ export const changeCellInWorld = (
   setWorldMap((oldWorld) => ({
     id: oldWorld.id,
     name: oldWorld.name,
-    world: oldWorld.world.map((oldCell) => {
+    cells: oldWorld.cells.map((oldCell) => {
       if (conditionFn(oldCell)) {
         return { ...oldCell, cellName };
       }

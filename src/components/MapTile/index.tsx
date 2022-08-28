@@ -4,6 +4,7 @@ import { MapTileRowStyled, MapTileWrapperStyled } from "./styles";
 import TileCell from "components/TileCell";
 import { PlayerModel } from "types/PlayerModel";
 import EffectModel from "types/EffectModel";
+import CellModel from "types/CellModel";
 
 interface MapTileProps {
   onClick: (
@@ -17,7 +18,13 @@ interface MapTileProps {
   tile: TileModel;
 }
 
-const MapTile = ({ tile, players, onClick, selectedCells, effects }: MapTileProps) => {
+const MapTile = ({
+  tile,
+  players,
+  onClick,
+  selectedCells,
+  effects,
+}: MapTileProps) => {
   const handleOnCellClick = useCallback(
     (cellId: number) => (cellName: string, e: React.MouseEvent<HTMLElement>) => {
       onClick(tile.tileId, cellId, e);
@@ -32,6 +39,15 @@ const MapTile = ({ tile, players, onClick, selectedCells, effects }: MapTileProp
     [selectedCells]
   );
 
+  const filterPlayersByCell = useCallback(
+    (cell: CellModel) => {
+      return players?.filter((player) => {
+        return player?.cell?.id === cell.id;
+      });
+    },
+    [players]
+  );
+
   return (
     <MapTileWrapperStyled>
       {tile.cells.map((cellRow, i) => (
@@ -42,7 +58,7 @@ const MapTile = ({ tile, players, onClick, selectedCells, effects }: MapTileProp
               key={cell.id}
               cellBase={cell.base}
               onClick={handleOnCellClick(cell.id)}
-              players={players}
+              players={filterPlayersByCell(cell)}
               effects={effects}
             />
           ))}

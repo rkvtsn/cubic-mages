@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { generatePath, useNavigate } from "react-router-dom";
 import WorldMap from "components/WorldMap";
 import { COLS, ROWS } from "constants/cells";
-import generateWorld from "utils/generateWorld";
+import generateWorldCells from "utils/generateWorldCells";
 import useStateUpdate from "hooks/useUpdateState";
 import EditorPanel from "./EditorPanel";
 import SaveLoadMenu from "./SaveLoadMenu";
@@ -92,7 +92,7 @@ const Editor = () => {
     setWorldMap((oldWorld) => ({
       id: oldWorld.id,
       name: oldWorld.name,
-      world: generateWorld({ rows: ROWS, cols: COLS }),
+      cells: generateWorldCells({ rows: ROWS, cols: COLS }),
     }));
   }, []);
 
@@ -100,7 +100,7 @@ const Editor = () => {
     setWorldMap((oldWorld) => ({
       id: world.id,
       name: world.name,
-      world: oldWorld.world,
+      cells: oldWorld.cells,
     }));
   }, []);
 

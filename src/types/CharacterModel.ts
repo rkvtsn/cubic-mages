@@ -1,9 +1,3 @@
-import { CellNameType } from "./CellModel";
-
-export interface CharacterModel {
-  startLocation: CellNameType;
-}
-
 export enum CharacterType {
   Paladin = "Paladin",
   Witcher = "Witcher",
@@ -11,5 +5,3 @@ export enum CharacterType {
   Witch = "Witch",
   Druid = "Druid",
 }
-
-export default CharacterModel;

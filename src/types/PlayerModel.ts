@@ -1,16 +1,16 @@
 import { ColorPlayer } from "constants/colors";
 import { SkillModel } from "./SkillModel";
-import { CharacterType } from "./CharacterModel";
 import { CubicModel } from "./CubicModel";
-import { CellPosition } from "./CellModel";
+import CellModel from "./CellModel";
+import { CharacterType } from "./CharacterModel";
 
 export interface PlayerModel {
   id: string;
   name: string;
   color: ColorPlayer;
+  characterType: CharacterType;
+  bag?: CubicModel[];
+  skills?: SkillModel[];
   isActive?: boolean;
-  position?: CellPosition;
-  type: CharacterType;
-  bag: CubicModel[];
-  skills: SkillModel[];
+  cell?: CellModel;
 }

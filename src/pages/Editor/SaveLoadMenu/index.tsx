@@ -42,10 +42,10 @@ const SaveLoadMenu = ({
     setSavedMaps((oldSaves) => {
       return [...oldSaves, savedMap];
     });
-    saveToLocalStorage(savedMap.id, {
+    saveToLocalStorage<WorldModel>(savedMap.id, {
       id: savedMap.id,
       name: savedMap.name,
-      world: world.world,
+      cells: world.cells,
     });
     onSave(savedMap);
   }, [onSave, setSavedMaps, world]);
