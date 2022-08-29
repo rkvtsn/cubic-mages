@@ -1,16 +1,20 @@
-import { CellPosition } from "./CellModel";
+import CellModel from "./CellModel";
 
 export enum EffectType {
   Rumor = "rumor",
   Goal = "goal",
   Encounter = "encounter",
+  Move = "top",
+}
+
+export interface IEffectPayload {
+  text: string;
 }
 
 export interface EffectModel {
-  name: string;
-  description: string;
   type: EffectType;
-  position: CellPosition;
+  cell?: CellModel;
+  payload: IEffectPayload;
 }
 
 export interface EffectData {

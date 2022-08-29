@@ -19,8 +19,8 @@ const WelcomeBoard = () => {
     <div>
       <h1>WelcomeBoard</h1>
       <div onClick={handleClickPanelNavigate}>
-        <button value={RouterKeys.PlayBoard}>PlayBoard</button>
         <button value={RouterKeys.Editor}>Editor mode</button>
+        <button value={RouterKeys.PlayBoardEmpty}>New Game</button>
       </div>
     </div>
   );

@@ -18,12 +18,13 @@ export const ROUTES: RouterViewItem[] = [
     path: RouterKeys.Editor,
     element: <Editor />,
   },
+  
   {
-    path: RouterKeys.PlayBoard,
+    path: RouterKeys.PlayBoardEmpty,
     element: <PlayBoard />,
   },
   {
-    path: RouterKeys.PlayBoardEmpty,
+    path: RouterKeys.PlayBoard,
     element: <PlayBoard />,
   },
 ];

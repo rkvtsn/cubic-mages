@@ -3,10 +3,10 @@ import { CellBaseModel } from "types/CellModel";
 import EffectModel from "types/EffectModel";
 import { InfoModel } from "types/InfoModel";
 import { PlayerModel } from "types/PlayerModel";
-import InfoCell from "./InfoCell";
 import PlayerCell from "./PlayerCell";
-import { TileCellStyled } from "./styles";
 import useCellStyle from "./useCellStyle";
+import { EffectsStyled, PlayersStyled, TileCellStyled } from "./styles";
+import EffectCell from "./EffectCell";
 
 const TileCell = ({
   onClick,
@@ -16,7 +16,6 @@ const TileCell = ({
   className,
   effects,
   players,
-  info,
 }: TileCellProps) => {
   const handleOnClick = useCallback(
     (e: React.MouseEvent<HTMLElement>) => {
@@ -29,10 +28,20 @@ const TileCell = ({
 
   return (
     <TileCellStyled className={className} {...styles} onClick={handleOnClick}>
-      {/* {info ? <InfoCell info={info} /> : null} */}
-      {/* {effect ? <EffectCell effect={effect} /> : null} */}
-      {!!players &&
-        players.map((player) => <PlayerCell key={player.id} player={player} />)}
+      {!!effects && (
+        <EffectsStyled>
+          {effects.map((effect) => (
+            <EffectCell key={effect.cell?.id} effect={effect} />
+          ))}
+        </EffectsStyled>
+      )}
+      {!!players && (
+        <PlayersStyled>
+          {players.map((player) => (
+            <PlayerCell key={player.id} player={player} />
+          ))}
+        </PlayersStyled>
+      )}
     </TileCellStyled>
   );
 };
@@ -45,7 +54,6 @@ export interface TileCellProps {
   className?: string;
   effects?: EffectModel[];
   players?: PlayerModel[];
-  info?: InfoModel | null;
 }
 
 export default memo(TileCell);

@@ -10,6 +10,9 @@ export const EFFECTS: Record<EffectType, EffectData> = {
   [EffectType.Rumor]: {
     symbol: "R",
   },
+  [EffectType.Move]: {
+    symbol: "X",
+  },
 };
 
 export default EFFECTS;

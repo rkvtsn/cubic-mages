@@ -7,7 +7,7 @@ import MainLayout from "components/MainLayout";
 import WorldMap from "components/WorldMap";
 import { loadFromLocalStorage } from "utils/localStorage";
 import { PlayerModel } from "types/PlayerModel";
-import { CURRENT_WORLD } from "constants/general";
+import { DEFAULT_WORLD } from "constants/general";
 import { ColorPlayer } from "constants/colors";
 import { CharacterType } from "types/CharacterModel";
 import EffectModel from "types/EffectModel";
@@ -16,27 +16,20 @@ import CharactersContainer from "constants/characters";
 import { ICharacterService } from "services/CharacterService";
 import CellModel from "types/CellModel";
 
-const initGame =
-  (players: PlayerModel[]) =>
-  (
-    worldId: string | undefined,
-    setWorldMap: (value: React.SetStateAction<WorldModel>) => void
-  ) => {
-    if (worldId) {
-      let world = loadFromLocalStorage(worldId, REAL_WORLD);
-
-      setWorldMap(world);
-    }
-  };
-
-const WORLD = loadFromLocalStorage<WorldModel>(CURRENT_WORLD, REAL_WORLD);
+const WORLD = loadFromLocalStorage<WorldModel>(DEFAULT_WORLD, REAL_WORLD);
 
 const INPUTED_PLAYERS: PlayerModel[] = [
   {
     id: "1",
     color: ColorPlayer.Blue,
     characterType: CharacterType.Druid,
-    name: "Player 1",
+    name: "Test Player Druid 11",
+  },
+  {
+    id: "2",
+    color: ColorPlayer.Green,
+    characterType: CharacterType.Druid,
+    name: "Test Player Druid 22",
   },
 ];
 
@@ -52,13 +45,13 @@ const useGame = (inputedPlayers: PlayerModel[], worldCells: CellModel[]) => {
 
   const nextPlayer = useCallback(() => {
     setCurrentPlayerIndex((i) => {
-      return i < players.length ? i++ : 0;
+      return i < players.length - 1 ? i + 1 : 0;
     });
   }, [players?.length]);
 
   const currentPlayer = useMemo(() => {
     return players[currentPlayerIndex];
-  }, [currentPlayerIndex, players]);
+  }, [players, currentPlayerIndex]);
 
   const refreshPlayers = useCallback(() => {
     setPlayers((prevPlayers) => {
@@ -97,6 +90,14 @@ const PlayBoard = ({ gamers = INPUTED_PLAYERS }: PlayBoardProps) => {
   const [worldMap, setWorldMap] = useState<WorldModel>(WORLD);
   const [effects, setEffects] = useState<EffectModel[]>([]);
 
+  useEffect(() => {
+    if (worldId) {
+      let world = loadFromLocalStorage(worldId, REAL_WORLD);
+
+      setWorldMap(world);
+    }
+  }, [worldId]);
+
   const { currentPlayer, nextPlayer, players } = useGame(
     gamers,
     worldMap.cells
@@ -114,8 +115,6 @@ const PlayBoard = ({ gamers = INPUTED_PLAYERS }: PlayBoardProps) => {
   const handleNewDay = useCallback(() => {
     nextPlayer();
   }, [nextPlayer]);
-
-  console.log({ players });
 
   return (
     <MainLayout

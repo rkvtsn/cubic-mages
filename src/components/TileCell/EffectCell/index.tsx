@@ -1,5 +1,5 @@
-import EFFECTS from "constants/effects";
 import { memo } from "react";
+import EFFECTS from "constants/effects";
 import EffectModel from "types/EffectModel";
 import { EffectCellWrapperStyled } from "./styles";
 
@@ -8,9 +8,10 @@ interface EffectCellProps {
 }
 
 const EffectCell = ({ effect }: EffectCellProps) => {
+  const symbol = EFFECTS[effect.type].symbol;
   return (
-    <EffectCellWrapperStyled title={effect.name}>
-      {EFFECTS[effect.type].symbol}
+    <EffectCellWrapperStyled title={effect.payload.text}>
+      {symbol}
     </EffectCellWrapperStyled>
   );
 };

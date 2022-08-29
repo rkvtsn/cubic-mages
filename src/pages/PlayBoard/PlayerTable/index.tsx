@@ -3,10 +3,11 @@ import Cubic from "./Cubic";
 import { PlayerTableWrapperStyled } from "./styles";
 
 interface PlayerTableProps {
-  player: PlayerModel;
+  player: PlayerModel | undefined;
 }
 
 const PlayerTable = ({ player }: PlayerTableProps) => {
+  console.log(player);
   return (
     <PlayerTableWrapperStyled>
       <h3>{player?.name}</h3>

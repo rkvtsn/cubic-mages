@@ -1,1 +1,1 @@
-export const CURRENT_WORLD = "current-world";
+export const DEFAULT_WORLD = "default-world";

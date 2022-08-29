@@ -25,8 +25,17 @@ export const TileCellStyled = styled.div<UseCellStyle>`
 `;
 
 export const CellOverlayStyled = styled.div`
-  position: absolute;
   display: block;
   width: ${CELL_OVERLAY_SIZE}px;
   height: ${CELL_OVERLAY_SIZE}px;
+`;
+
+export const PlayersStyled = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+export const EffectsStyled = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;
