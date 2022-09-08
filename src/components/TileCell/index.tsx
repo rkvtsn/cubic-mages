@@ -1,12 +1,11 @@
 import { memo, useCallback } from "react";
 import { CellBaseModel } from "types/CellModel";
 import EffectModel from "types/EffectModel";
-import { InfoModel } from "types/InfoModel";
 import { PlayerModel } from "types/PlayerModel";
 import PlayerCell from "./PlayerCell";
+import EffectCell from "./EffectCell";
 import useCellStyle from "./useCellStyle";
 import { EffectsStyled, PlayersStyled, TileCellStyled } from "./styles";
-import EffectCell from "./EffectCell";
 
 const TileCell = ({
   onClick,

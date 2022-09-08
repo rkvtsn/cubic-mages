@@ -11,6 +11,5 @@ export interface PlayerModel {
   characterType: CharacterType;
   bag?: CubicModel[];
   skills?: SkillModel[];
-  isActive?: boolean;
   cell?: CellModel;
 }

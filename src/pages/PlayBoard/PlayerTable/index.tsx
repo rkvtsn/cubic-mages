@@ -1,13 +1,17 @@
-import { PlayerModel } from "types/PlayerModel";
+import { ICharacterService } from "services/CharacterService";
 import Cubic from "./Cubic";
 import { PlayerTableWrapperStyled } from "./styles";
 
 interface PlayerTableProps {
-  player: PlayerModel | undefined;
+  character: ICharacterService | undefined;
+  onShowAvailableLocations: () => void;
 }
 
-const PlayerTable = ({ player }: PlayerTableProps) => {
-  console.log(player);
+const PlayerTable = ({
+  character,
+  onShowAvailableLocations,
+}: PlayerTableProps) => {
+  const player = character?.getPlayer();
   return (
     <PlayerTableWrapperStyled>
       <h3>{player?.name}</h3>
@@ -18,7 +22,9 @@ const PlayerTable = ({ player }: PlayerTableProps) => {
         ))}
       </div>
       <div>Actions:</div>
-      <div></div>
+      <div>
+        <button onClick={onShowAvailableLocations}>Show available moves</button>
+      </div>
     </PlayerTableWrapperStyled>
   );
 };

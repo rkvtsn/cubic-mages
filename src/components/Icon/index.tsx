@@ -1,4 +1,4 @@
-import { Icons } from "types/InfoModel";
+import { Icons } from "constants/icons";
 
 interface IconProps {
   icon: Icons;

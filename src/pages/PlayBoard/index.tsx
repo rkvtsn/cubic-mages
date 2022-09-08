@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useParams } from "react-router-dom";
 
 import WorldModel from "types/WorldModel";
@@ -37,11 +43,12 @@ interface PlayBoardProps {
   gamers?: PlayerModel[];
 }
 
-const characters: Record<string, ICharacterService> = {};
+// const characters: Record<string, ICharacterService> = {};
 
 const useGame = (inputedPlayers: PlayerModel[], worldCells: CellModel[]) => {
   const [players, setPlayers] = useState<PlayerModel[]>(inputedPlayers);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState<number>(0);
+  const characters = useRef<Record<string, ICharacterService>>({});
 
   const nextPlayer = useCallback(() => {
     setCurrentPlayerIndex((i) => {
@@ -49,14 +56,14 @@ const useGame = (inputedPlayers: PlayerModel[], worldCells: CellModel[]) => {
     });
   }, [players?.length]);
 
-  const currentPlayer = useMemo(() => {
-    return players[currentPlayerIndex];
+  const currentCharacter = useMemo(() => {
+    return characters.current[players[currentPlayerIndex].id];
   }, [players, currentPlayerIndex]);
 
   const refreshPlayers = useCallback(() => {
     setPlayers((prevPlayers) => {
       return prevPlayers.map((player) => {
-        return characters[player.id].getPlayer();
+        return characters.current[player.id].getPlayer();
       });
     });
   }, []);
@@ -64,24 +71,24 @@ const useGame = (inputedPlayers: PlayerModel[], worldCells: CellModel[]) => {
   useEffect(() => {
     for (let i = 0; i < inputedPlayers.length; i++) {
       const player = inputedPlayers[i];
-      const character = CharactersContainer[player.characterType]({
-        ...player,
-      });
-      if (i === 0) {
-        character.setActive(true);
-      }
-      characters[player.id] = character;
-      character.spawnPlayer(worldCells);
+      const character = CharactersContainer[player.characterType](
+        {
+          ...player,
+        },
+        worldCells
+      );
+      characters.current[player.id] = character;
     }
     refreshPlayers();
   }, [inputedPlayers, refreshPlayers, worldCells]);
 
   return {
-    currentPlayer,
+    currentCharacter,
     players,
     setPlayers,
     nextPlayer,
     refreshPlayers,
+    characters,
   };
 };
 
@@ -98,7 +105,7 @@ const PlayBoard = ({ gamers = INPUTED_PLAYERS }: PlayBoardProps) => {
     }
   }, [worldId]);
 
-  const { currentPlayer, nextPlayer, players } = useGame(
+  const { currentCharacter, nextPlayer, players } = useGame(
     gamers,
     worldMap.cells
   );
@@ -116,10 +123,17 @@ const PlayBoard = ({ gamers = INPUTED_PLAYERS }: PlayBoardProps) => {
     nextPlayer();
   }, [nextPlayer]);
 
+  const handleShowAvailableLocations = useCallback(() => {}, []);
+
   return (
     <MainLayout
       header={<button onClick={handleNewDay}>New day</button>}
-      rightbar={<PlayerTable player={currentPlayer} />}
+      rightbar={
+        <PlayerTable
+          onShowAvailableLocations={handleShowAvailableLocations}
+          character={currentCharacter}
+        />
+      }
     >
       <WorldMap
         effects={effects}
